@@ -3,7 +3,7 @@
 export default function Home() {
   return (
    <main>
-          <p>form page</p>
+        <p>form page</p>
    </main>
   )
 }

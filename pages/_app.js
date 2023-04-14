@@ -2,7 +2,7 @@ import NavMenu from '../components/NavMenu'
 import '../styles/globals.css'
 import { Fragment } from 'react'
 import Head from 'next/head'
-import Navbar from '@/components/Navbar'
+import Navbar from '../components/Navbar'
 
 export default function App({ Component, pageProps }) {
   return <Fragment>
