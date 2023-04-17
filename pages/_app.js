@@ -1,4 +1,4 @@
-import NavMenu from '../components/NavMenu'
+import { SessionProvider } from 'next-auth/react';
 import '../styles/globals.css'
 import { Fragment } from 'react'
 import Head from 'next/head'
@@ -12,6 +12,8 @@ export default function App({ Component, pageProps }) {
       <meta name="keywords" content="grateful, gratefulness, daily journal,reflection, stoic, progress"></meta>
     </Head>
     <Navbar/>
-    <Component {...pageProps} />
+    <SessionProvider session={pageProps.session}>
+      <Component {...pageProps} />
+    </SessionProvider>
   </Fragment>
 }
