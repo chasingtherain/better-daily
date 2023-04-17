@@ -12,7 +12,7 @@ export default function Navbar() {
     console.log(session,status,loading)
     console.log(session)
     return (
-        <div className="flex mt-3 border-2 justify-between">
+        <div className="flex mt-3 border-2 justify-between md:px-5">
             <NavMenu/>
             {status === 'authenticated' ? <UserAvatar image={session.user.image} name={session.user.name}/> : <ActionButton name="Login" action=""/>}
         </div>
