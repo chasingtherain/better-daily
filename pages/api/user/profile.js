@@ -10,11 +10,11 @@ export default async function handler(req, res) {
         // return error
 
 
-    const post = await prisma.user.findUnique({
-        where: {
-            email: "mario@mail.com",
-        },
-        });
+    // const user = await prisma.user.findUnique({
+    //     where: {
+    //         email: "mario@mail.com",
+    //     },
+    //     });
     
     res.status(200).json({ message: 'fetch profile successful', user: user })
 }
