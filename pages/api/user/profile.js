@@ -1,4 +1,6 @@
-export default function handler(req, res) {
+import prisma from '../../../lib/prisma'
+
+export default async function handler(req, res) {
     // connect to db
     // read user_id from FE
     // retrieve user's info from db
@@ -7,5 +9,12 @@ export default function handler(req, res) {
     // else:
         // return error
 
-    res.status(200).json({ message: 'fetch profile successful' })
+
+    const post = await prisma.user.findUnique({
+        where: {
+            email: "mario@mail.com",
+        },
+        });
+    
+    res.status(200).json({ message: 'fetch profile successful', user: user })
 }
