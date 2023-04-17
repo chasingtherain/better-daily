@@ -28,4 +28,27 @@ const options = {
   ],
   adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      const isAllowedToSignIn = true
+      if (isAllowedToSignIn) {
+        console.log(user, account, profile, email, credentials)
+        return true
+      } else {
+        // Return false to display a default error message
+        return false
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
+      }
+    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    },
+    async session({ session, user, token }) {
+      return session
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return token
+    }
+  }
 };

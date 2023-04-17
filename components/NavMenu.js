@@ -5,7 +5,7 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 export default function NavMenu() {
 
   return (
-      <NavigationMenu.Root className="relative z-[1] flex w-screen justify-center">
+      <NavigationMenu.Root className="relative z-[1] flex w-screen md:ml-10">
         <NavigationMenu.List className="center shadow-blackA7 m-0 flex list-none rounded-[6px] bg-white p-2 shadow-[0_2px_10px]">
 
           <NavigationMenu.Item>
