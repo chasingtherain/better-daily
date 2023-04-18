@@ -9,8 +9,6 @@ export default function Navbar() {
 
     const { data: session, status } = useSession()
     const loading = status === "loading"
-    console.log(session,status,loading)
-    console.log(session)
     return (
         <div className="flex mt-3 border-2 justify-between md:px-5">
             <NavMenu/>
