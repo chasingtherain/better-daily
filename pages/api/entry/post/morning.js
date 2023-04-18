@@ -19,12 +19,12 @@ export default async function handler(req, res) {
     if(!user){
         res.status(422).json({ message: 'failed to find user'})
     }
-    const whereConditions = {
-        authorId: user.id, // Foreign key condition
-        todayDate: selectedDate
-      }
+   
     const existingRecord = await prisma.entry.findFirst({
-        where: whereConditions,
+        where: {
+          authorId: user.id, // Foreign key condition
+          todayDate: selectedDate
+        },
       })
       console.log("existingRecord: ", existingRecord)
       console.log("user: ", user)
@@ -34,7 +34,6 @@ export default async function handler(req, res) {
               id: existingRecord.id, // Use the retrieved id in the where argument
             },
             data: {
-                todayDate: selectedDate,
                 gratefulContent: grateful,
                 focusContent: focus,
             },

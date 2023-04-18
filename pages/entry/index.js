@@ -7,7 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default function Entry(){
     const { data: session } = useSession()
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedMorningDate, setSelectedMorningDate] = useState(new Date());
+    const [selectedEveningDate, setSelectedEveningDate] = useState(new Date());
     const [formData, setFormData] = useState({
         gratefulOne: '',
         gratefulTwo: '',
@@ -29,43 +30,20 @@ export default function Entry(){
         setFormData({...formData, [name]: value})
     }
 
-    const handleMorningSubmit = (e) => {
+    const handleSubmit = (e, day) => {
         e.preventDefault()
+        console.log("submitted")
         let submittedData = {
             grateful: [formData.gratefulOne,formData.gratefulTwo,formData.gratefulThree],
             focus: [formData.focusOne,formData.focusTwo,formData.focusThree],
-            userEmail: session.user.email,
-            selectedDate: selectedDate.toDateString()
-        }
-        // link to api endpoint
-        fetch('/api/entry/post/morning',{
-            method: "POST",
-            headers: {"Content-Type": "application/json"}, // Specify the content type as JSON
-            body: JSON.stringify(submittedData), // Convert data object to JSON string
-        })
-        .then(response => {
-          // handle response
-            console.log("form submission successful")
-            // inform user that form is submitted
-            // redirect user to entry?
-        })
-        .catch(error => {
-          // handle error
-        });
-
-    }
-
-    const handleEveningSubmit = (e) => {
-        e.preventDefault()
-        let submittedData = {
             wentWell: [formData.wentWellOne,formData.wentWellTwo,formData.wentWellThree],
             notWell: [formData.notWellOne,formData.notWellTwo,formData.notWellThree],
             improve: formData.improveOne,
             userEmail: session.user.email,
-            selectedDate: selectedDate.toDateString()
+            selectedDate: day === "morning" ? selectedMorningDate.toDateString() : selectedEveningDate.toDateString()
         }
         // link to api endpoint
-        fetch('/api/entry/post/evening',{
+        fetch(`/api/entry/post/${day}`,{
             method: "POST",
             headers: {"Content-Type": "application/json"}, // Specify the content type as JSON
             body: JSON.stringify(submittedData), // Convert data object to JSON string
@@ -110,12 +88,12 @@ export default function Entry(){
                     className="grow p-5 rounded-b-md outline-none"
                 >
                     <Form.Root>
-                        <Form.Field className="grid mb-[10px]" name="date">
-                            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">I am thankful for</Form.Label>
+                        <Form.Field className="grid mb-[10px]" name="morningDate">
+                            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">Date</Form.Label>
                             <DatePicker
                                 dateFormat="dd MMM yyyy"
-                                selected={selectedDate}
-                                onChange={(date) => setSelectedDate(date)}
+                                selected={selectedMorningDate}
+                                onChange={(date) => setSelectedMorningDate(date)}
                             />
                         </Form.Field>
                         <Form.Field className="grid mb-[10px]" name="grateful">
@@ -194,8 +172,7 @@ export default function Entry(){
                         <button
                             className="box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none"
                             // disabled
-                            onClick={handleMorningSubmit}
-
+                            onClick={(e) => handleSubmit(e,"morning")}
                         >
                             Submit Reflection
                         </button>
@@ -206,6 +183,14 @@ export default function Entry(){
                     className="grow p-5 rounded-b-md outline-none"
                 >
                     <Form.Root>
+                        <Form.Field className="grid mb-[10px]" name="morningDate">
+                            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">Date</Form.Label>
+                            <DatePicker
+                                dateFormat="dd MMM yyyy"
+                                selected={selectedEveningDate}
+                                onChange={(date) => setSelectedEveningDate(date)}
+                            />
+                        </Form.Field>
                         <Form.Field className="grid mb-[10px]" name="wentWell">
                             <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
                                 What went well today?
@@ -295,7 +280,7 @@ export default function Entry(){
                         <Form.Submit asChild>
                         <button 
                             className="box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none"
-                            onClick={handleEveningSubmit}    
+                            onClick={(e) => handleSubmit(e,"evening")}  
                         >
                             Submit Reflection
                         </button>
