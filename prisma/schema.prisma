@@ -29,7 +29,7 @@ model Entry {
   id                  String    @default(cuid()) @id
   createdAt           DateTime  @default(now()) @map(name: "created_at")
   updatedAt           DateTime  @updatedAt @map(name: "updated_at")
-  todayDate           DateTime?
+  todayDate           String
   gratefulContent     String[]
   focusContent        String[]
   wentWellContent     String[]

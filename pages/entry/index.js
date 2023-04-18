@@ -29,11 +29,35 @@ export default function Entry(){
         setFormData({...formData, [name]: value})
     }
 
-    const handleSubmit = (e) => {
+    const handleMorningSubmit = (e) => {
         e.preventDefault()
         let submittedData = {
             grateful: [formData.gratefulOne,formData.gratefulTwo,formData.gratefulThree],
             focus: [formData.focusOne,formData.focusTwo,formData.focusThree],
+            userEmail: session.user.email,
+            selectedDate: selectedDate.toDateString()
+        }
+        // link to api endpoint
+        fetch('/api/entry/post/morning',{
+            method: "POST",
+            headers: {"Content-Type": "application/json"}, // Specify the content type as JSON
+            body: JSON.stringify(submittedData), // Convert data object to JSON string
+        })
+        .then(response => {
+          // handle response
+            console.log("form submission successful")
+            // inform user that form is submitted
+            // redirect user to entry?
+        })
+        .catch(error => {
+          // handle error
+        });
+
+    }
+
+    const handleEveningSubmit = (e) => {
+        e.preventDefault()
+        let submittedData = {
             wentWell: [formData.wentWellOne,formData.wentWellTwo,formData.wentWellThree],
             notWell: [formData.notWellOne,formData.notWellTwo,formData.notWellThree],
             improve: formData.improveOne,
@@ -41,7 +65,7 @@ export default function Entry(){
             selectedDate: selectedDate.toDateString()
         }
         // link to api endpoint
-        fetch('/api/entry/post',{
+        fetch('/api/entry/post/evening',{
             method: "POST",
             headers: {"Content-Type": "application/json"}, // Specify the content type as JSON
             body: JSON.stringify(submittedData), // Convert data object to JSON string
@@ -170,7 +194,7 @@ export default function Entry(){
                         <button
                             className="box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none"
                             // disabled
-                            onClick={handleSubmit}
+                            onClick={handleMorningSubmit}
 
                         >
                             Submit Reflection
@@ -269,7 +293,10 @@ export default function Entry(){
                         </Form.Field>
                         
                         <Form.Submit asChild>
-                        <button className="box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none">
+                        <button 
+                            className="box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none"
+                            onClick={handleEveningSubmit}    
+                        >
                             Submit Reflection
                         </button>
                         </Form.Submit>
