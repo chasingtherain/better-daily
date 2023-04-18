@@ -35,8 +35,8 @@ model Entry {
   wentWellContent     String[]
   notSoWellContent    String[]
   improvementContent  String[]
-  author              User?     @relation(fields: [authorId], references: [id])
   authorId            String
+  author              User?     @relation(fields: [authorId], references: [id])
 }
 
 model Account {

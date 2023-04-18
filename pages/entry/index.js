@@ -1,9 +1,13 @@
 import * as Form from '@radix-ui/react-form';
 import * as Tabs from '@radix-ui/react-tabs';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Entry(){
-
+    const { data: session } = useSession()
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [formData, setFormData] = useState({
         gratefulOne: '',
         gratefulTwo: '',
@@ -28,11 +32,13 @@ export default function Entry(){
     const handleSubmit = (e) => {
         e.preventDefault()
         let submittedData = {
-            grateful: [gratefulOne,gratefulTwo,gratefulThree],
-            focus: [focusOne,focusTwo,focusThree],
-            wentWell: [wentWellOne,wentWellTwo,wentWellThree],
-            notWell: [notWellOne,notWellTwo,notWellThree],
-            improve: improveOne
+            grateful: [formData.gratefulOne,formData.gratefulTwo,formData.gratefulThree],
+            focus: [formData.focusOne,formData.focusTwo,formData.focusThree],
+            wentWell: [formData.wentWellOne,formData.wentWellTwo,formData.wentWellThree],
+            notWell: [formData.notWellOne,formData.notWellTwo,formData.notWellThree],
+            improve: formData.improveOne,
+            userEmail: session.user.email,
+            selectedDate: selectedDate.toDateString()
         }
         // link to api endpoint
         fetch('/api/entry/post',{
@@ -49,7 +55,7 @@ export default function Entry(){
         .catch(error => {
           // handle error
         });
-        console.log("form submitted")
+
     }
 
     return(
@@ -80,6 +86,14 @@ export default function Entry(){
                     className="grow p-5 rounded-b-md outline-none"
                 >
                     <Form.Root>
+                        <Form.Field className="grid mb-[10px]" name="date">
+                            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">I am thankful for</Form.Label>
+                            <DatePicker
+                                dateFormat="dd MMM yyyy"
+                                selected={selectedDate}
+                                onChange={(date) => setSelectedDate(date)}
+                            />
+                        </Form.Field>
                         <Form.Field className="grid mb-[10px]" name="grateful">
                             <div className="flex items-baseline justify-between">
                                 <Form.Label className="text-[15px] font-medium leading-[35px] text-white">I am thankful for</Form.Label>
@@ -155,7 +169,7 @@ export default function Entry(){
                     <Form.Submit asChild>
                         <button
                             className="box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none"
-                            disabled
+                            // disabled
                             onClick={handleSubmit}
 
                         >

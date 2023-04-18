@@ -32,8 +32,9 @@ const options = {
     async signIn({ user, account, profile, email, credentials }) {
       const isAllowedToSignIn = true
       if (isAllowedToSignIn) {
-        console.log(user, account, profile, email, credentials)
-        return true
+        // console.log(user, account, profile, email, credentials)
+        console.log("user: ",user)
+        return user
       } else {
         // Return false to display a default error message
         return false
