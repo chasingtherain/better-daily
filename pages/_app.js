@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
       <meta name="keywords" content="grateful, gratefulness, daily journal,reflection, stoic, progress"></meta>
     </Head>
     <SessionProvider session={pageProps.session}>
-      {pageProps.session ? <Navbar/> : <></>}
+      <Navbar/>
       <Component {...pageProps} />
     </SessionProvider>
   </Fragment>

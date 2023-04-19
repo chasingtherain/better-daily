@@ -9,12 +9,14 @@ export default function Navbar() {
 
     const { data: session, status } = useSession()
     const loading = status === "loading"
-    return (
-        <div className="flex mt-3 border-2 justify-between md:px-5">
-            <NavMenu/>
-            {status === 'authenticated' ? <UserAvatar image={session.user.image} name={session.user.name}/> : <ActionButton name="Login" action=""/>}
-        </div>
-    );
+    if(session){
+        return (
+            <div className="flex mt-3 border-2 justify-between md:px-5">
+                <NavMenu/>
+                {status === 'authenticated' ? <UserAvatar image={session.user.image} name={session.user.name}/> : <ActionButton name="Login" action=""/>}
+            </div>
+        );
+    }
 
 }
  
