@@ -1,10 +1,11 @@
-import { SessionProvider } from 'next-auth/react';
+import { SessionProvider, useSession } from 'next-auth/react';
 import '../styles/globals.css'
 import { Fragment } from 'react'
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 
 export default function App({ Component, pageProps }) {
+
   return <Fragment>
     <Head>
       <title>Better Daily</title>
@@ -12,7 +13,7 @@ export default function App({ Component, pageProps }) {
       <meta name="keywords" content="grateful, gratefulness, daily journal,reflection, stoic, progress"></meta>
     </Head>
     <SessionProvider session={pageProps.session}>
-      <Navbar/>
+      {pageProps.session ? <Navbar/> : <></>}
       <Component {...pageProps} />
     </SessionProvider>
   </Fragment>
