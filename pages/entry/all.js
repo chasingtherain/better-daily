@@ -33,7 +33,7 @@ export default function Home() {
 
   if (session && status=="authenticated") {
     return (
-      <div className="flex flex-wrap justify-center items-center gap-3">
+      <div className="flex flex-wrap justify-center items-center gap-4 md:mt-10">
         {entries.map(entry => <EntryCard key={entry.id} entry={entry} />)}
       </div>
     )
