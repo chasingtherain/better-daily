@@ -2,14 +2,12 @@
 
 import { NextApiHandler } from 'next';
 import NextAuth from 'next-auth';
+import type { NextAuthOptions } from 'next-auth'
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import FacebookProvider from "next-auth/providers/facebook";
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from "next-auth/providers/google";
 import prisma from '../../../lib/prisma';
-
-const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
-export default authHandler;
 
 const options = {
   providers: [
@@ -53,3 +51,9 @@ const options = {
     }
   }
 };
+
+export const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
+export const authOptions: NextAuthOptions = options
+
+
+export default NextAuth(authOptions);

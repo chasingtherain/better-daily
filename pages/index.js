@@ -1,16 +1,29 @@
-import { getSession, useSession } from "next-auth/react"
-import { Metadata } from "next"
-import Image from "next/image"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { Command } from "lucide-react"
 import ActionButton from "../components/ui/ActionButton"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { getServerSession } from "next-auth/next"
+
 
 export default function Home() {
   const { data: session, status } = useSession()
-  const loading = status === "loading"
 
-  if (typeof window !== "undefined" && loading) return null
-  // console.log(session,status)
+  console.log(session)
+
+  // if (typeof window !== "undefined") {
+  //   localStorage.setItem('userSession', JSON.stringify(session));
+  //   const user = JSON.parse(localStorage.getItem('userSession'));
+  //   console.log("localstorage: ", user)
+  // }
+
+
+
+
+  // const loading = status === "loading"
+
+  // if (typeof window !== "undefined" && loading) return null
+
   if (session) {
     return (
       <>
@@ -20,7 +33,7 @@ export default function Home() {
       </>
     )
   }
-  return <p>Access Denied</p>
+  // return <p>Access Denied</p>
   if(!session){
     return (
       <>
@@ -98,9 +111,21 @@ export default function Home() {
   }
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context)
+export async function getServerSideProps(context){
+  const session = await getServerSession(context.req, context.res, authOptions)
+  console.log("session from gssp: ", session)
+  if (!session) {
+    return{
+      redirect: {
+        destination: '/api/auth/signin',
+        permanent: false,
+      }
+    }
+  }
+
   return {
-    props: { session },
+    props: {
+      session,
+    },
   }
 }

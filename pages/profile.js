@@ -1,6 +1,8 @@
 import * as Label from '@radix-ui/react-label';
 import { signOut, useSession } from 'next-auth/react';
 import ActionButton from '../components/ui/ActionButton';
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { getServerSession } from "next-auth/next"
 
 export default function Profile() {
   const { data: session, status } = useSession()
@@ -25,4 +27,23 @@ export default function Profile() {
     )
   }
   return <p>Access Denied</p>
+}
+
+export async function getServerSideProps(context){
+  const session = await getServerSession(context.req, context.res, authOptions)
+  console.log("session from gssp: ", session)
+  if (!session) {
+    return{
+      redirect: {
+        destination: '/api/auth/signin',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {
+      session,
+    },
+  }
 }

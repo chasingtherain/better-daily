@@ -4,6 +4,8 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { getServerSession } from "next-auth/next"
 
 export default function Entry(){
     const { data: session } = useSession()
@@ -292,3 +294,22 @@ export default function Entry(){
         </div>
     )
 } 
+
+export async function getServerSideProps(context){
+    const session = await getServerSession(context.req, context.res, authOptions)
+    console.log("session from gssp: ", session)
+    if (!session) {
+      return{
+        redirect: {
+          destination: '/api/auth/signin',
+          permanent: false,
+        }
+      }
+    }
+  
+    return {
+      props: {
+        session,
+      },
+    }
+  }
