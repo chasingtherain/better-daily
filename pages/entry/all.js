@@ -10,17 +10,17 @@ export default function AllEntries() {
   const fetcher = (...args) => fetch(...args).then(res => res.json())
   const { data, error, isLoading } = useSWR(`/api/entry/get/all?params=${session.user.email}`, fetcher)
 
+  const entriesSortedInDesc = data?.entries.sort((a,b)=> new Date(b.todayDate) - new Date(a.todayDate))
 
   if (error) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>
   if (session && status=="authenticated") {
     return (
       <div className="flex flex-wrap justify-center items-center gap-4 md:mt-10">
-        {data.entries.map(entry => <EntryCard key={entry.id} entry={entry} />)}
+        {entriesSortedInDesc.map(entry => <EntryCard key={entry.id} entry={entry} />)}
       </div>
     )
   }
-    return <p>Access Denied</p>
 }
 
 export async function getServerSideProps(context){
