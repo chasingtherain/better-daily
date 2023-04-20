@@ -6,10 +6,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
+import { useRouter } from 'next/router';
 
 export default function Entry(props){
-    console.log(props.session)
     const { data: session } = useSession()
+    const router = useRouter()
     const [selectedMorningDate, setSelectedMorningDate] = useState(new Date());
     const [selectedEveningDate, setSelectedEveningDate] = useState(new Date());
     const [formData, setFormData] = useState({
@@ -56,6 +57,11 @@ export default function Entry(props){
             console.log("form submission successful")
             // inform user that form is submitted
             // redirect user to entry?
+            console.log("response: ", response)
+            if(response.ok){
+                console.log("response is ok! redirect should happen")
+                router.push('/entry/all')
+            }
         })
         .catch(error => {
           // handle error
