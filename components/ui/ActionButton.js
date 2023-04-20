@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-export default function ActionButton({action,name}) {
+export default function ActionButton({action,name,link}) {
   if(action){
     return (
       <button onClick={action} className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-bold text-white rounded-md shadow-2xl group border-2 bg-black mr-2">
@@ -21,7 +21,7 @@ export default function ActionButton({action,name}) {
     )
   }
   return (
-    <Link href="/api/auth/signin" className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-bold text-white rounded-md shadow-2xl group border-2 bg-black mr-2">
+    <Link href={link ? link : "/api/auth/signin"} className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-bold text-white rounded-md shadow-2xl group border-2 bg-black mr-2">
         <span className="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"></span>
         {/* <!-- Top glass gradient --> */}
         <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>

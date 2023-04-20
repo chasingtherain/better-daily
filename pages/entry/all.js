@@ -25,7 +25,7 @@ export default function AllEntries() {
 
 export async function getServerSideProps(context){
   const session = await getServerSession(context.req, context.res, authOptions)
-  console.log("session from gssp: ", session)
+
   if (!session) {
     return{
       redirect: {

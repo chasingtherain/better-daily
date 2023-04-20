@@ -4,21 +4,26 @@ import { Command } from "lucide-react"
 import ActionButton from "../components/ui/ActionButton"
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
+import { quotes } from "../data/quotes"
 
 
-export default function Home() {
+export default function Home(props) {
   const { data: session, status } = useSession()
-
+  console.log(props)
   if (session) {
     return (
-      <>
-        <h1>Protected Page</h1>
-        <p>Welcome {session.user.name}</p>
-        <p>You can view this page because you are signed in.</p>
-      </>
+      <div className="bg-slate-800 h-screen">
+          <p className="text-white text-[35px] mt-20 mb-4 text-center">Welcome back, <span className="font-medium">{session.user.name}</span></p>
+          <div className="my-32 md:my-38 md:mx-[25%] text-center">
+            <p className="text-white text-3xl leading-normal font-serif tracking-normal">A quote to inspire you:</p>
+            <p className="text-white text-4xl leading-normal font-serif tracking-wide subpixel-antialiased md:my-8">{props.quote.text}</p>
+            <p className="text-white text-2xl tracking-tight italic mt-5 mb-10"> {`${props.quote.author}`}</p>
+            <ActionButton name="Journal Today" link="/entry"/>
+
+          </div>
+      </div>
     )
   }
-  // return <p>Access Denied</p>
   if(!session){
     return (
       <>
@@ -100,9 +105,15 @@ export async function getServerSideProps(context){
   const session = await getServerSession(context.req, context.res, authOptions)
   console.log("session from gssp: ", session)
 
+  const randomNum = Math.floor(Math.random() * quotes.length)
+  const chosenQuote = quotes.filter(quote => quote.id === randomNum)[0]
+  console.log(chosenQuote)
+
+
   return {
     props: {
       session,
+      quote: chosenQuote,
     },
   }
 }
