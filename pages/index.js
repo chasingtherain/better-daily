@@ -9,21 +9,6 @@ import { getServerSession } from "next-auth/next"
 export default function Home() {
   const { data: session, status } = useSession()
 
-  console.log(session)
-
-  // if (typeof window !== "undefined") {
-  //   localStorage.setItem('userSession', JSON.stringify(session));
-  //   const user = JSON.parse(localStorage.getItem('userSession'));
-  //   console.log("localstorage: ", user)
-  // }
-
-
-
-
-  // const loading = status === "loading"
-
-  // if (typeof window !== "undefined" && loading) return null
-
   if (session) {
     return (
       <>
@@ -114,14 +99,6 @@ export default function Home() {
 export async function getServerSideProps(context){
   const session = await getServerSession(context.req, context.res, authOptions)
   console.log("session from gssp: ", session)
-  if (!session) {
-    return{
-      redirect: {
-        destination: '/api/auth/signin',
-        permanent: false,
-      }
-    }
-  }
 
   return {
     props: {

@@ -1,46 +1,27 @@
 import { getSession, useSession } from "next-auth/react"
+import useSWR from 'swr'
 import { useEffect, useState } from "react"
 import { EntryCard } from "../../components/EntryCard"
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 
-export default function Home() {
+export default function AllEntries() {
   const { data: session, status } = useSession()
-  const loading = status === "loading"
-  const [entries, setEntries] = useState([])
-  console.log(session)
-    useEffect(() => {
-    // Fetch data from the database here
-    const fetchData = async () => {
-        try {
-          if (session && session.user && session.user.email){
-            const response = await fetch(`/api/entry/get/all?params=${session.user.email}`);
-            console.log("response: ", response)
-            const jsonData = await response.json();
 
-            setEntries(jsonData.entries);
-          }
-        } 
-        catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-    fetchData();
-    }, [session]); // Empty dependency array to run effect only on component mount
+  const fetcher = (...args) => fetch(...args).then(res => res.json())
+  const { data, error, isLoading } = useSWR(`/api/entry/get/all?params=${session.user.email}`, fetcher)
 
 
-  if (typeof window !== "undefined" && loading) return null
-  // console.log(session,status)
-
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <div>loading...</div>
   if (session && status=="authenticated") {
     return (
       <div className="flex flex-wrap justify-center items-center gap-4 md:mt-10">
-        {entries.map(entry => <EntryCard key={entry.id} entry={entry} />)}
+        {data.entries.map(entry => <EntryCard key={entry.id} entry={entry} />)}
       </div>
     )
   }
-    // return <p>Access Denied</p>
+    return <p>Access Denied</p>
 }
 
 export async function getServerSideProps(context){

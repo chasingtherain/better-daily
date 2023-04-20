@@ -7,7 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 
-export default function Entry(){
+export default function Entry(props){
+    console.log(props.session)
     const { data: session } = useSession()
     const [selectedMorningDate, setSelectedMorningDate] = useState(new Date());
     const [selectedEveningDate, setSelectedEveningDate] = useState(new Date());
@@ -63,7 +64,7 @@ export default function Entry(){
     }
 
     return(
-        <div className='bg-gradient-to-r from-sky-500 to-indigo-500 h-screen'>
+        <div className='bg-slate-800 h-screen'>
               <Tabs.Root 
                 defaultValue="morning"
                 className='flex flex-col shadow-blackA4' 

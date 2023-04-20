@@ -11,7 +11,7 @@ export default function Navbar() {
     const loading = status === "loading"
     if(session){
         return (
-            <div className="flex mt-3 border-2 justify-between md:px-5">
+            <div className="flex mt-3 justify-between md:px-5">
                 <NavMenu/>
                 {status === 'authenticated' ? <UserAvatar image={session.user.image} name={session.user.name}/> : <ActionButton name="Login" action=""/>}
             </div>
