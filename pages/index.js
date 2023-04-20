@@ -12,7 +12,7 @@ export default function Home(props) {
   console.log(props)
   if (session) {
     return (
-      <div className="bg-slate-800 h-screen">
+      <div className="bg-slate-800 h-screen border-2 border-transparent">
           <p className="text-white text-[35px] mt-20 mb-4 text-center">Welcome back, <span className="font-medium">{session.user.name}</span></p>
           <div className="my-32 md:my-38 md:mx-[25%] text-center">
             <p className="text-white text-3xl leading-normal font-serif tracking-normal">A quote to inspire you:</p>

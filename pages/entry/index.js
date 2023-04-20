@@ -7,12 +7,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { useRouter } from 'next/router';
+import { Button } from "@/components/ui/button"
 
 export default function Entry(props){
     const { data: session } = useSession()
     const router = useRouter()
     const [selectedMorningDate, setSelectedMorningDate] = useState(new Date());
     const [selectedEveningDate, setSelectedEveningDate] = useState(new Date());
+    const [disabled, setDisabled] = useState(true)
     const [formData, setFormData] = useState({
         gratefulOne: '',
         gratefulTwo: '',
@@ -32,6 +34,7 @@ export default function Entry(props){
     const handleChange = (e) => {
         const {name, value} = e.target
         setFormData({...formData, [name]: value})
+        setDisabled(false)
     }
 
     const handleSubmit = (e, day) => {
@@ -46,6 +49,22 @@ export default function Entry(props){
             userEmail: session.user.email,
             selectedDate: day === "morning" ? selectedMorningDate.toDateString() : selectedEveningDate.toDateString()
         }
+        
+        if(day == "morning"){
+            let validInput = Boolean(submittedData.grateful.concat(submittedData.focus).join("").trim())
+            console.log(validInput)
+            if(!validInput){
+                return console.log("invalid morning input")
+            }
+        }
+        else{
+            let validInput = Boolean(submittedData.wentWell.concat(submittedData.notWell).join("").trim())
+
+            if(!validInput){
+                return console.log("invalid evening input")
+            }
+        }
+
         // link to api endpoint
         fetch(`/api/entry/post/${day}`,{
             method: "POST",
@@ -179,8 +198,8 @@ export default function Entry(props){
                     </Form.Root>
                     <Form.Submit asChild>
                         <button
-                            className="box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none"
-                            // disabled
+                            className={`${disabled ? "opacity-25" : "opacity-100"} box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none`}
+                            disabled = {disabled} 
                             onClick={(e) => handleSubmit(e,"morning")}
                         >
                             Submit Reflection
@@ -288,8 +307,9 @@ export default function Entry(props){
                         
                         <Form.Submit asChild>
                         <button 
-                            className="box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none"
+                            className={`${disabled ? "opacity-25" : "opacity-100"} box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none`}
                             onClick={(e) => handleSubmit(e,"evening")}  
+                            disabled = {disabled}
                         >
                             Submit Reflection
                         </button>
