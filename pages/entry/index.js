@@ -7,13 +7,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { useRouter } from 'next/router';
-import { Button } from "@/components/ui/button"
 
 export default function Entry(props){
     const { data: session } = useSession()
     const router = useRouter()
-    const [selectedMorningDate, setSelectedMorningDate] = useState(new Date());
-    const [selectedEveningDate, setSelectedEveningDate] = useState(new Date());
+    const [selectedDate, setselectedDate] = useState(new Date());
     const [disabled, setDisabled] = useState(true)
     const [formData, setFormData] = useState({
         gratefulOne: '',
@@ -37,7 +35,7 @@ export default function Entry(props){
         setDisabled(false)
     }
 
-    const handleSubmit = (e, day) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         console.log("submitted")
         let submittedData = {
@@ -47,26 +45,17 @@ export default function Entry(props){
             notWell: [formData.notWellOne,formData.notWellTwo,formData.notWellThree],
             improve: formData.improveOne,
             userEmail: session.user.email,
-            selectedDate: day === "morning" ? selectedMorningDate.toDateString() : selectedEveningDate.toDateString()
+            selectedDate: selectedDate.toDateString()
         }
         
-        if(day == "morning"){
-            let validInput = Boolean(submittedData.grateful.concat(submittedData.focus).join("").trim())
-            console.log(validInput)
-            if(!validInput){
-                return console.log("invalid morning input")
-            }
+        let validInput = Boolean(submittedData.grateful.concat(submittedData.focus).join("").trim())
+        if(!validInput){
+            return console.log("invalid form input")
         }
-        else{
-            let validInput = Boolean(submittedData.wentWell.concat(submittedData.notWell).join("").trim())
 
-            if(!validInput){
-                return console.log("invalid evening input")
-            }
-        }
 
         // link to api endpoint
-        fetch(`/api/entry/post/${day}`,{
+        fetch(`/api/entry/post/`,{
             method: "POST",
             headers: {"Content-Type": "application/json"}, // Specify the content type as JSON
             body: JSON.stringify(submittedData), // Convert data object to JSON string
@@ -94,22 +83,6 @@ export default function Entry(props){
                 defaultValue="morning"
                 className='flex flex-col shadow-blackA4' 
                 >
-                <Tabs.List 
-                    aria-label="tabs"
-                    className='flex'>
-                    <Tabs.Trigger 
-                        value="morning"
-                        className='px-5 flex-1 flex items-center justify-center text-[15px] leading-none text-slate-100 select-none first:rounded-tl-md last:rounded-tr-md hover:text-violet11 data-[state=active]:text-violet11 data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] data-[state=active]:shadow-current'
-                    >
-                        Morning
-                    </Tabs.Trigger>
-                    <Tabs.Trigger 
-                        value="evening"
-                        className='px-5 h-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-slate-100 select-none first:rounded-tl-md last:rounded-tr-md hover:text-violet11 data-[state=active]:text-violet11 data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] data-[state=active]:shadow-current'>
-                        Evening
-                    </Tabs.Trigger>
-
-                </Tabs.List>
 
                 <Tabs.Content 
                     value="morning"
@@ -120,8 +93,8 @@ export default function Entry(props){
                             <Form.Label className="text-[15px] font-medium leading-[35px] text-white">Date</Form.Label>
                             <DatePicker
                                 dateFormat="dd MMM yyyy"
-                                selected={selectedMorningDate}
-                                onChange={(date) => setSelectedMorningDate(date)}
+                                selected={selectedDate}
+                                onChange={(date) => setselectedDate(date)}
                             />
                         </Form.Field>
                         <Form.Field className="grid mb-[10px]" name="grateful">
@@ -195,33 +168,9 @@ export default function Entry(props){
                                 />
                             </Form.Control>
                         </Form.Field>
-                    </Form.Root>
-                    <Form.Submit asChild>
-                        <button
-                            className={`${disabled ? "opacity-25" : "opacity-100"} box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none`}
-                            disabled = {disabled} 
-                            onClick={(e) => handleSubmit(e,"morning")}
-                        >
-                            Submit Reflection
-                        </button>
-                    </Form.Submit>
-                </Tabs.Content>
-                <Tabs.Content 
-                    value="evening"
-                    className="grow p-5 rounded-b-md outline-none"
-                >
-                    <Form.Root>
-                        <Form.Field className="grid mb-[10px]" name="morningDate">
-                            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">Date</Form.Label>
-                            <DatePicker
-                                dateFormat="dd MMM yyyy"
-                                selected={selectedEveningDate}
-                                onChange={(date) => setSelectedEveningDate(date)}
-                            />
-                        </Form.Field>
                         <Form.Field className="grid mb-[10px]" name="wentWell">
                             <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-                                What went well today?
+                                What went well yesterday?
                             </Form.Label>
                             <Form.Control asChild>
                                 <input
@@ -256,7 +205,7 @@ export default function Entry(props){
                         </Form.Field>
                         <Form.Field className="grid mb-[10px]" name="notWell">
                             <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-                                What did not go as well today?
+                                What did not go well yesterday?
                             </Form.Label>
                             <Form.Control asChild>
                                 <input
@@ -291,7 +240,7 @@ export default function Entry(props){
                         </Form.Field>
                         <Form.Field className="grid mb-[10px]" name="improve">
                             <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-                                Name one thing you wish to improve on
+                                Reflecting on yesterday, what is one thing you wish to improve on
                             </Form.Label>
                             <Form.Control asChild>
                                 <input
@@ -304,17 +253,17 @@ export default function Entry(props){
                                 />
                             </Form.Control>
                         </Form.Field>
-                        
-                        <Form.Submit asChild>
-                        <button 
+                    </Form.Root>
+                    
+                    <Form.Submit asChild>
+                        <button
                             className={`${disabled ? "opacity-25" : "opacity-100"} box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none`}
-                            onClick={(e) => handleSubmit(e,"evening")}  
-                            disabled = {disabled}
+                            disabled = {disabled} 
+                            onClick={(e) => handleSubmit(e)}
                         >
                             Submit Reflection
                         </button>
-                        </Form.Submit>
-                    </Form.Root>
+                    </Form.Submit>
                 </Tabs.Content>
 
             </Tabs.Root>
