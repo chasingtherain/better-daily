@@ -8,7 +8,7 @@ export default function NavMenu() {
     {title: "All Entries", url:"/entry/all"}
   ]
   return (
-      <NavigationMenu.Root className="relative z-[1] flex w-screen md:ml-10">
+      <NavigationMenu.Root className="relative z-[1] flex w-screen ml-4 md:ml-10">
         <NavigationMenu.List className="center shadow-blackA7 m-0 flex list-none rounded-[6px] bg-white p-2 shadow-[0_2px_10px]">
           {navItems.map((item,index)=> 
           <NavigationMenu.Item key={index}>
