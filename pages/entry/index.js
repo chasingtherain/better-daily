@@ -129,6 +129,7 @@ export default function Entry(props){
                     </div>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="grateful"
                         name="gratefulOne"
@@ -139,6 +140,7 @@ export default function Entry(props){
                     </Form.Control>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="grateful"
                         name="gratefulTwo"
@@ -149,6 +151,7 @@ export default function Entry(props){
                     </Form.Control>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="grateful"
                         name="gratefulThree"
@@ -165,6 +168,7 @@ export default function Entry(props){
                     </Form.Label>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="focus"
                         name="focusOne"
@@ -175,6 +179,7 @@ export default function Entry(props){
                     </Form.Control>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="focus"
                         name="focusTwo"
@@ -185,6 +190,7 @@ export default function Entry(props){
                     </Form.Control>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="focus"
                         name="focusThree"
@@ -200,6 +206,7 @@ export default function Entry(props){
                     </Form.Label>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="wentWell"
                         placeholder='finished task X'
@@ -210,6 +217,7 @@ export default function Entry(props){
                     </Form.Control>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="wentWell"
                         placeholder='optional'
@@ -220,6 +228,7 @@ export default function Entry(props){
                     </Form.Control>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="wentWell"
                         placeholder='optional'
@@ -235,6 +244,7 @@ export default function Entry(props){
                     </Form.Label>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="notWell"
                         placeholder='finished task X'
@@ -245,6 +255,7 @@ export default function Entry(props){
                     </Form.Control>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="notWell"
                         placeholder='optional'
@@ -255,6 +266,7 @@ export default function Entry(props){
                     </Form.Control>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="notWell"
                         placeholder='optional'
@@ -270,6 +282,7 @@ export default function Entry(props){
                     </Form.Label>
                     <Form.Control asChild>
                         <Input
+                        maxlength="50"
                         className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                         type="improve"
                         placeholder='spend lesser time on task Y'
