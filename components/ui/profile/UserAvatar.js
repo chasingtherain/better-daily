@@ -12,7 +12,7 @@ export default function UserAvatar({image,name}) {
             src={image}
             alt="User Image"
           />
-          <Avatar.Fallback className="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-black text-[15px] font-medium">
+          <Avatar.Fallback className="text-blue-700 dark:text-white leading-1 flex h-full w-full items-center justify-center bg-black text-[15px] font-medium">
             {name[0]}
           </Avatar.Fallback>
         </Avatar.Root>

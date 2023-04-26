@@ -1,8 +1,6 @@
 import * as Form from '@radix-ui/react-form';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { useRouter } from 'next/router';
@@ -18,7 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-
+import {formHeaderAndPlaceholders} from '../../data/form/formData'
 
 export default function Entry(props){
     const { data: session } = useSession()
@@ -90,15 +88,10 @@ export default function Entry(props){
     }
 
     return(
-        <div className='h-screen'>
+        <div className='h-screen px-[5%] md:px-[40%]'>
             <Form.Root>
-                <Form.Field className="grid mb-[10px]" name="morningDate">
+                <Form.Field className="grid mb-[10px]">
                     <Form.Label className="text-[15px] font-medium leading-[35px] dark:text-white">Date</Form.Label>
-                    {/* <DatePicker
-                        dateFormat="dd MMM yyyy"
-                        selected={selectedDate}
-                        onChange={(date) => setselectedDate(date)}
-                    /> */}
 
                     <Popover className="">
                         <PopoverTrigger asChild>
@@ -123,180 +116,34 @@ export default function Entry(props){
                         </PopoverContent>
                     </Popover>
                 </Form.Field>
-                <Form.Field className="grid mb-[10px]" name="grateful">
-                    <div className="flex items-baseline justify-between">
-                        <Form.Label className="text-[15px] font-medium leading-[35px] dark:text-white">I am thankful for</Form.Label>
-                    </div>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="grateful"
-                        name="gratefulOne"
-                        value={formData.gratefulOne}
-                        placeholder='the lovely weather'
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="grateful"
-                        name="gratefulTwo"
-                        value={formData.gratefulTwo}
-                        placeholder='optional'
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="grateful"
-                        name="gratefulThree"
-                        value={formData.gratefulThree}
-                        placeholder='optional'
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                </Form.Field>
-
-                <Form.Field className="grid mb-[10px]" name="focus">
-                    <Form.Label className="text-[15px] font-medium leading-[35px] dark:text-white">
-                        My three key focus for the day
-                    </Form.Label>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="focus"
-                        name="focusOne"
-                        value={formData.focusOne}
-                        placeholder='finish task X'
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="focus"
-                        name="focusTwo"
-                        value={formData.focusTwo}
-                        placeholder='optional'
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="focus"
-                        name="focusThree"
-                        value={formData.focusThree}
-                        placeholder='optional'
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                </Form.Field>
-                <Form.Field className="grid mb-[10px]" name="wentWell">
-                    <Form.Label className="text-[15px] font-medium leading-[35px] dark:text-white">
-                        What went well yesterday?
-                    </Form.Label>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="wentWell"
-                        placeholder='finished task X'
-                        name="wentWellOne"
-                        value={formData.wentWellOne}
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="wentWell"
-                        placeholder='optional'
-                        name="wentWellTwo"
-                        value={formData.wentWellTwo}
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="wentWell"
-                        placeholder='optional'
-                        name="wentWellThree"
-                        value={formData.wentWellThree}
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                </Form.Field>
-                <Form.Field className="grid mb-[10px]" name="notWell">
-                    <Form.Label className="text-[15px] font-medium leading-[35px] dark:text-white">
-                        What did not go well yesterday?
-                    </Form.Label>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="notWell"
-                        placeholder='finished task X'
-                        name="notWellOne"
-                        value={formData.notWellOne}
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="notWell"
-                        placeholder='optional'
-                        name="notWellTwo"
-                        value={formData.notWellTwo}
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="notWell"
-                        placeholder='optional'
-                        name="notWellThree"
-                        value={formData.notWellThree}
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                </Form.Field>
-                <Form.Field className="grid mb-[10px]" name="improve">
-                    <Form.Label className="text-[15px] font-medium leading-[35px] dark:text-white">
-                        Reflecting on yesterday, what is one thing you wish to improve on
-                    </Form.Label>
-                    <Form.Control asChild>
-                        <Input
-                        maxlength="50"
-                        className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
-                        type="improve"
-                        placeholder='spend lesser time on task Y'
-                        name="improveOne"
-                        value={formData.improveOne}
-                        onChange={handleChange}
-                        />
-                    </Form.Control>
-                </Form.Field>
+                {
+                    formHeaderAndPlaceholders.map((field,index) => 
+                    (<Form.Field key={index} className="grid mb-[10px]" name={field.name}>
+                        <div className="flex items-baseline justify-between">
+                            <Form.Label className="text-[15px] font-medium leading-[35px] dark:text-white">{field.title}</Form.Label>
+                        </div>
+                        {
+                            field.inputField.map((input,index)=>
+                                <Form.Control asChild key={index}>
+                                    <Input
+                                    maxLength={50}
+                                    className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
+                                    type={input.type}
+                                    name={input.name}
+                                    value={formData[input.name]}
+                                    placeholder={input.placeholder}
+                                    onChange={handleChange}
+                                    />
+                                </Form.Control>)
+                        }
+                    </Form.Field>)
+                    )
+                }
             </Form.Root>
             
             <Form.Submit asChild>
                 <Button
-                    className={`${disabled ? "opacity-25" : "opacity-100"} box-border bg-slate-100 w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none`}
+                    className={`${disabled ? "opacity-25" : "opacity-100"} box-border bg-slate-100 w-full text-blue-700 dark:text-white shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none`}
                     disabled = {disabled} 
                     onClick={(e) => handleSubmit(e)}
                 >
