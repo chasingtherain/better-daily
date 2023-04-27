@@ -14,7 +14,7 @@ export default function Home(props) {
     return (
       <div className="h-screen border-2 border-transparent">
           <p className="dark:text-white text-xl md:text-[35px] mt-20 mb-4 text-center">Welcome back, <span className="font-medium">{session.user.name}</span></p>
-          <div className="my-32 md:my-38 md:mx-[25%] text-center">
+          <div className="my-32 md:my-38 mx-[10%] md:mx-[25%] text-center">
               <p className="dark:text-white text-xl md:text-3xl leading-normal font-serif tracking-normal">Get Better Daily, Start Doing.</p>
               <p className="dark:text-white text-xl md:text-4xl leading-normal font-serif tracking-wide italic my-8">{`“${props.quote.text}”`}</p>
               <p className="dark:text-white text-xl md:text-2xl tracking-tight italic mb-10"> {`${props.quote.author}`}</p>

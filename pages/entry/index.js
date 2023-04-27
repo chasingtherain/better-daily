@@ -121,7 +121,7 @@ export default function Entry(props){
 
     }
 
-    if(!isLoading) return <LoadingForm/>
+    if(isLoading) return <LoadingForm/>
 
     return(
         <div className='h-screen px-[5%] mt-6 md:px-[40%]'>

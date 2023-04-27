@@ -5,11 +5,11 @@ export default function NavMenu() {
   const navItems = [
     {title: "Home", url: "/"},
     {title: "Today's Entry", url:"/entry"},
-    {title: "All Entries", url:"/entry/all"}
+    {title: "All Entries", url:"/entry/all"},
   ]
   return (
       <NavigationMenu.Root className="relative z-[1] flex w-screen ml-4 md:ml-10">
-        <NavigationMenu.List className="center shadow-blackA7 m-0 flex list-none rounded-[6px] bg-white p-2 shadow-[0_2px_10px]">
+        <NavigationMenu.List className="flex rounded-[4px] bg-white dark:bg-white p-2 shadow-xl shadow-blue-500/50">
           {navItems.map((item,index)=> 
           <NavigationMenu.Item key={index}>
             <NavigationMenu.Link
