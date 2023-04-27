@@ -124,7 +124,7 @@ export default function Entry(props){
         <div className='h-screen px-[5%] md:px-[40%]'>
             <Form.Root>
                 <Form.Field className="grid mb-[10px]">
-                    <Form.Label className="text-[15px] font-medium leading-[35px] dark:text-white">Date</Form.Label>
+                    <Form.Label className="text-[15px] font-semibold leading-[35px] dark:text-white">Date</Form.Label>
 
                     <Popover className="">
                         <PopoverTrigger asChild>
@@ -153,7 +153,7 @@ export default function Entry(props){
                     formHeaderAndPlaceholders.map((field,index) => 
                     (<Form.Field key={index} className="grid mb-[10px]" name={field.name}>
                         <div className="flex items-baseline justify-between">
-                            <Form.Label className="text-[15px] font-medium leading-[35px] dark:text-white">{field.title}</Form.Label>
+                            <Form.Label className="text-[16px] font-semibold leading-[35px] dark:text-white">{field.title}</Form.Label>
                         </div>
                         {
                             field.inputField.map((input,index)=>
@@ -177,12 +177,12 @@ export default function Entry(props){
             <Form.Submit asChild>
                 
                 <Button
-                    className={`${disabled ? "opacity-25" : "opacity-100"} box-border bg-slate-100 w-full text-blue-700 dark:text-white shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none`}
+                    className={`${disabled ? "opacity-25" : "opacity-100"} mt-4 mb-20 bg-slate-100 w-full text-blue-600 border-2 border-slate-300 dark:text-white hover:bg-slate-400 rounded-[4px] text-[16px] leading-none`}
                     disabled = {disabled} 
                     onClick={(e) => handleSubmit(e)}
                 >
                     {buttonIsLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                    {buttonIsLoading ? "Submitting..." :"Submit Reflection"}
+                    {buttonIsLoading ? "Submitting..." : "Submit Reflection"}
                 </Button>
             </Form.Submit>
         </div>
