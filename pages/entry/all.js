@@ -16,7 +16,7 @@ export default function AllEntries() {
   if (isLoading) return <div>loading...</div>
   if (session && status=="authenticated") {
     return (
-      <div className="flex flex-wrap justify-center items-center gap-4 md:mt-10">
+      <div className="flex flex-wrap justify-center items-center gap-4 mt-10 mb-20">
         {entriesSortedInDesc.map(entry => <EntryCard key={entry.id} entry={entry} />)}
       </div>
     )

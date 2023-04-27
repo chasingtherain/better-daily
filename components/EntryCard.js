@@ -14,8 +14,8 @@ import EntryDetails from "./EntryDetails"
 
 export function EntryCard({entry}) {
     return (
-        <ScrollArea className="w-4/5 md:w-[400px] h-[300px] md:h-[400px] rounded-md border border-slate-500">
-            <Card className="md:w-[400px] h-[500px] my-4 border-none">
+        <ScrollArea className="w-4/5 md:w-[300px] h-[300px] md:h-[400px] rounded-md border border-slate-500 mx-2 mb-2">
+            <Card className="border-none">
                 <CardHeader>
                     <CardTitle className="leading-none">{entry.todayDate}</CardTitle>
                 </CardHeader>
@@ -30,7 +30,7 @@ export function EntryCard({entry}) {
                                     )}
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
-                                    <Label className="font-semibold text-md" htmlFor="name">Today, I focused on</Label>
+                                    <Label className="font-semibold text-md" htmlFor="name">Today I focused on</Label>
                                     <Separator className="my-2 bg-slate-300" />
                                     {entry.focusContent.map((content,index) => 
                                         <EntryDetails key={index} content={content}/>
@@ -44,7 +44,7 @@ export function EntryCard({entry}) {
                                     ))}
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
-                                    <Label className="font-semibold text-md" htmlFor="name">These didn't go as expected yesterday</Label>
+                                    <Label className="font-semibold text-md" htmlFor="name">These didn't go well yesterday</Label>
                                     <Separator className="my-2 bg-slate-300" />
                                     {entry.notSoWellContent.map((content,index) => (
                                         <EntryDetails key={index} content={content}/>

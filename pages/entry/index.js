@@ -121,17 +121,17 @@ export default function Entry(props){
     }
 
     return(
-        <div className='h-screen px-[5%] md:px-[40%]'>
+        <div className='h-screen px-[5%] mt-6 md:px-[40%]'>
             <Form.Root>
                 <Form.Field className="grid mb-[10px]">
-                    <Form.Label className="text-[15px] font-semibold leading-[35px] dark:text-white">Date</Form.Label>
+                    <Form.Label className="text-[16px] font-semibold leading-[35px] dark:text-white">Date</Form.Label>
 
                     <Popover className="">
                         <PopoverTrigger asChild>
                             <Button
                             variant={"outline"}
                             className={cn(
-                                "w-[280px] justify-start text-left font-normal",
+                                "w-[280px] justify-start text-left font-normal border-black",
                                 !selectedDate && "text-muted-foreground"
                             )}
                             >
