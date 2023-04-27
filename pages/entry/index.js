@@ -23,10 +23,7 @@ import useSWR from 'swr'
 export default function Entry(props){
     const { data: session } = useSession()
     const { data: entries, error, isLoading } = useSWR(`/api/entry/get/all?params=${session.user.email}`, fetcher)
-    const router = useRouter()
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [disabled, setDisabled] = useState(true)
-    const [formData, setFormData] = useState({
+    const defaultFormState = {
         gratefulOne: '',
         gratefulTwo: '',
         gratefulThree: '',
@@ -40,7 +37,11 @@ export default function Entry(props){
         notWellTwo: '',
         notWellThree: '',
         improveOne: '',
-    });
+    }
+    const router = useRouter()
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [disabled, setDisabled] = useState(true)
+    const [formData, setFormData] = useState(defaultFormState);
     const todayEntry = entries?.entries.filter(entry => entry.todayDate == selectedDate.toDateString())[0]
     console.log(todayEntry)
 
@@ -62,7 +63,11 @@ export default function Entry(props){
                 improveOne: todayEntry.improvementContent[0]
             })
         }
-    },[isLoading, todayEntry])
+        else if(!todayEntry){
+            setFormData(defaultFormState)
+        }
+    }
+    ,[defaultFormState,isLoading, todayEntry])
 
     const handleChange = (e) => {
         const {name, value} = e.target

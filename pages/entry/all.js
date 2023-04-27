@@ -11,7 +11,7 @@ export default function AllEntries() {
   const { data, error, isLoading } = useSWR(`/api/entry/get/all?params=${session.user.email}`, fetcher)
 
   const entriesSortedInDesc = data?.entries.sort((a,b)=> new Date(b.todayDate) - new Date(a.todayDate))
-  console.log(entriesSortedInDesc)
+
   if (error) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>
   if (session && status=="authenticated") {

@@ -10,6 +10,7 @@ import {
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import EntryDetails from "./EntryDetails"
 
 export function EntryCard({entry}) {
     return (
@@ -24,55 +25,35 @@ export function EntryCard({entry}) {
                                 <div className="flex flex-col space-y-1.5">
                                     <Label htmlFor="name">I was thankful for</Label>
                                     <Separator className="my-2 bg-slate-200" />
-                                    {entry.gratefulContent.map((content) => 
-                                        <React.Fragment key={content}>
-                                            <div className="text-sm">
-                                                {content}
-                                            </div>
-                                        </React.Fragment>
+                                    {entry.gratefulContent.map((content,index) => 
+                                        <EntryDetails key={index} content={content}/>
                                     )}
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
                                     <Label htmlFor="name">Today, I focused on</Label>
                                     <Separator className="my-2 bg-slate-200" />
-                                    {entry.focusContent.map((content) => 
-                                        <React.Fragment key={content}>
-                                            <div className="text-sm">
-                                                {content}
-                                            </div>
-                                        </React.Fragment>
+                                    {entry.focusContent.map((content,index) => 
+                                        <EntryDetails key={index} content={content}/>
                                     )}
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
                                     <Label htmlFor="name">These went well yesterday</Label>
                                     <Separator className="my-2 bg-slate-200" />
-                                    {entry.wentWellContent.map(content => (
-                                        <React.Fragment key={content}>
-                                            <div className="text-sm" >
-                                                {content}
-                                            </div>
-                                        </React.Fragment>
+                                    {entry.wentWellContent.map((content,index) => (
+                                        <EntryDetails key={index} content={content}/>
                                     ))}
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
                                     <Label htmlFor="name">These didn't go as expected yesterday</Label>
                                     <Separator className="my-2 bg-slate-200" />
-                                    {entry.notSoWellContent.map((content) => (
-                                        <React.Fragment key={content}>
-                                            <div className="text-sm">
-                                                {content}
-                                            </div>
-                                        </React.Fragment>
+                                    {entry.notSoWellContent.map((content,index) => (
+                                        <EntryDetails key={index} content={content}/>
                                     ))}
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
                                     <Label htmlFor="name">I could improve on</Label>
                                     <Separator className="my-2 bg-slate-200" />
-                                    <React.Fragment>
-                                    <div className="text-sm">
-                                        {entry.improvementContent[0]}
-                                    </div>
-                                    </React.Fragment>
+                                    <EntryDetails content={entry.improvementContent[0]}/>
                                 </div>
                             </React.Fragment>
                     </div>
