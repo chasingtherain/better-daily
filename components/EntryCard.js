@@ -58,9 +58,6 @@ export function EntryCard({entry}) {
                             </React.Fragment>
                     </div>
                 </CardContent>
-                <CardFooter className="flex justify-between">
-                <Button className="border-2">Edit</Button>
-                </CardFooter>
             </Card>
         </ScrollArea>
     )

@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
+import { Calendar as CalendarIcon, Loader2 as Loader } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -40,9 +40,10 @@ export default function Entry(props){
     }
     const router = useRouter()
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [disabled, setDisabled] = useState(true)
     const [formData, setFormData] = useState(defaultFormState);
-    const todayEntry = entries?.entries.filter(entry => entry.todayDate == selectedDate.toDateString())[0]
+    const [disabled, setDisabled] = useState(true)
+    const [buttonIsLoading, setButtonIsLoading] = useState(false)
+    const todayEntry = entries?.entries?.filter(entry => entry.todayDate == selectedDate?.toDateString())[0]
     console.log(todayEntry)
 
     useEffect(() => {
@@ -67,7 +68,8 @@ export default function Entry(props){
             setFormData(defaultFormState)
         }
     }
-    ,[defaultFormState,isLoading, todayEntry])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    ,[isLoading, todayEntry])
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -77,6 +79,7 @@ export default function Entry(props){
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setButtonIsLoading(true)
         console.log("submitted")
         let submittedData = {
             grateful: [formData.gratefulOne,formData.gratefulTwo,formData.gratefulThree],
@@ -90,6 +93,7 @@ export default function Entry(props){
         
         let validInput = Boolean(submittedData.grateful.concat(submittedData.focus).join("").trim())
         if(!validInput){
+            setButtonIsLoading(false)
             return console.log("invalid form input")
         }
 
@@ -107,7 +111,6 @@ export default function Entry(props){
             // redirect user to entry?
             console.log("response: ", response)
             if(response.ok){
-                console.log("response is ok! redirect should happen")
                 router.push('/entry/all')
             }
         })
@@ -172,12 +175,14 @@ export default function Entry(props){
             </Form.Root>
             
             <Form.Submit asChild>
+                
                 <Button
                     className={`${disabled ? "opacity-25" : "opacity-100"} box-border bg-slate-100 w-full text-blue-700 dark:text-white shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none`}
                     disabled = {disabled} 
                     onClick={(e) => handleSubmit(e)}
                 >
-                    Submit Reflection
+                    {buttonIsLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+                    {buttonIsLoading ? "Submitting..." :"Submit Reflection"}
                 </Button>
             </Form.Submit>
         </div>
