@@ -19,6 +19,7 @@ import {
 import {formHeaderAndPlaceholders} from '../../data/form/formData'
 import { fetcher } from '../../utils/fetcher';
 import useSWR from 'swr'
+import LoadingForm from '../../components/loadingSkeleton/LoadingForm';
 
 export default function Entry(props){
     const { data: session } = useSession()
@@ -119,6 +120,8 @@ export default function Entry(props){
         });
 
     }
+
+    if(!isLoading) return <LoadingForm/>
 
     return(
         <div className='h-screen px-[5%] mt-6 md:px-[40%]'>
