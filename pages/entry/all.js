@@ -4,6 +4,7 @@ import { EntryCard } from "../../components/EntryCard"
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { fetcher } from "../../utils/fetcher"
+import LoadingCards from "../../components/loadingSkeleton/LoadingCards"
 
 export default function AllEntries() {
   const { data: session, status } = useSession()
@@ -13,8 +14,8 @@ export default function AllEntries() {
   const entriesSortedInDesc = data?.entries.sort((a,b)=> new Date(b.todayDate) - new Date(a.todayDate))
 
   if (error) return <div>failed to load</div>
-  if (isLoading) return <div>loading...</div>
-  if (session && status=="authenticated") {
+  if (isLoading) return <LoadingCards/>
+  if (session && status=="authenticated" && !isLoading) {
     return (
       <div className="flex flex-wrap justify-center items-center gap-4 mt-10 mb-20">
         {entriesSortedInDesc.map(entry => <EntryCard key={entry.id} entry={entry} />)}
