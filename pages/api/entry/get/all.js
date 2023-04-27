@@ -10,7 +10,6 @@ export default async function handler(req, res) {
         where: {email: params},
       })
 
-
     if(!user){
         res.status(422).json({ message: 'failed to find user'})
     }

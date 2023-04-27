@@ -352,7 +352,7 @@ export const quotes = [
    },
    {  
       "id": id++,
-      "text":"The critical ingredient is getting off your butt and doing something. It’s as simple as that. A lot of people have ideas, but there are few who decide to do something about them now. Not tomorrow. Not next week. But today. The true entrepreneur is a doer, not a dreamer.”",
+      "text":"The critical ingredient is getting off your butt and doing something. It’s as simple as that. A lot of people have ideas, but there are few who decide to do something about them now. Not tomorrow. Not next week. But today. The true entrepreneur is a doer, not a dreamer.",
       "author":"Nolan Bushnell, entrepreneur."
    },
    {  
@@ -382,7 +382,7 @@ export const quotes = [
    },
    {  
       "id": id++,
-      "text":"If you’re not embarrassed by the first version of your product, you’ve launched too late.”",
+      "text":"If you’re not embarrassed by the first version of your product, you’ve launched too late.",
       "author":"Reid Hoffman, co-founder of LinkedIn."
    },
    {  
@@ -392,7 +392,7 @@ export const quotes = [
    },
    {  
       "id": id++,
-      "text":"I’m not afraid of dying, I’m afraid of not trying.”",
+      "text":"I’m not afraid of dying, I’m afraid of not trying.",
       "author":"Jay Z, musician."
    },
    {  
@@ -1043,7 +1043,7 @@ export const quotes = [
    {  
       "id": id++,
       "text":"If you want to be inventive",
-      "author":"you have to be willing to fail.”"
+      "author":"you have to be willing to fail."
    },
    {  
       "id": id++,
@@ -1367,7 +1367,7 @@ export const quotes = [
    },
    {  
       "id": id++,
-      "text":"For all of the most important things, the timing always sucks. Waiting for a good time to quit your job? The stars will never align and the traffic lights of life will never all be green at the same time. The universe doesn’t conspire against you, but it doesn’t go out of its way to line up the pins either. Conditions are never perfect. “Someday is a disease that will take your dreams to the grave with you. Pro and con lists are just as bad. If it’s important to you and you want to do it “eventually, just do it and correct course along the way.",
+      "text":"For all of the most important things, the timing always sucks. Waiting for a good time to quit your job? The stars will never align and the traffic lights of life will never all be green at the same time. The universe doesn’t conspire against you, but it doesn’t go out of its way to line up the pins either. Conditions are never perfect.",
       "author":"Timothy Ferriss"
    },
    {  
@@ -1719,7 +1719,7 @@ export const quotes = [
       "author":"Anais Nin"},
    {  
       "id": id++,
-      "text":"If you hear a voice within you say “you cannot paint,” then by all means paint and that voice will be silenced.",
+      "text":"If you hear a voice within you say you cannot paint, then by all means paint and that voice will be silenced.",
       "author":"Vincent Van Gogh"},
    {  
       "id": id++,
@@ -1763,7 +1763,7 @@ export const quotes = [
       "author":"Plato"},
    {  
       "id": id++,
-      "text":"Teach thy tongue to say, “I do not know,” and thous shalt progress.",
+      "text":"Teach thy tongue to say, I do not know, and thous shalt progress.",
       "author":"Maimonides"},
    {  
       "id": id++,
@@ -1983,7 +1983,7 @@ export const quotes = [
       "author":"Benjamin Franklin"},
    {  
       "id": id++,
-      "text":"Nothing is impossible, the word itself says, “I’m possible!”",
+      "text":"Nothing is impossible, the word itself says, I’m possible!",
       "author":"–Audrey Hepburn"},
    {  
       "id": id++,
@@ -1992,5 +1992,25 @@ export const quotes = [
    {  
       "id": id++,
       "text":"If you can dream it, you can achieve it.",
-      "author":"Zig Ziglar"}
+      "author":"Zig Ziglar"},
+   {
+      "id": id++,
+      "text": "When in doubt, just take the next small step.", 
+      "author": "Paulo Coelho"
+   },
+   {
+      "id": id++,
+      "text": "When in doubt, just take the next small step.", 
+      "author": "Paulo Coelho"
+   },
+   {
+      "id": id++,
+      "text": "When in doubt, just take the next small step.", 
+      "author": "Paulo Coelho"
+   },
+   {
+      "id": id++,
+      "text": "When in doubt, just take the next small step.", 
+      "author": "Paulo Coelho"
+   },
 ]

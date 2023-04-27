@@ -31,7 +31,7 @@ export default function Profile() {
 
 export async function getServerSideProps(context){
   const session = await getServerSession(context.req, context.res, authOptions)
-  console.log("session from gssp: ", session)
+  // console.log("session from gssp: ", session)
   if (!session) {
     return{
       redirect: {

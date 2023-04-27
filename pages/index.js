@@ -101,8 +101,8 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context){
-  const session = await getServerSession(context.req, context.res, authOptions)
-  console.log("session from gssp: ", session)
+  const session = await getServerSessison(context.req, context.res, authOptions)
+  // console.log("session from gssp: ", session)
 
   const randomNum = Math.floor(Math.random() * quotes.length)
   const chosenQuote = quotes.filter(quote => quote.id === randomNum)[0]

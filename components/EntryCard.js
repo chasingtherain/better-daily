@@ -57,13 +57,13 @@ export function EntryCard({entry}) {
                                 <div className="flex flex-col space-y-1.5">
                                     <Label htmlFor="name">These didn't go as expected yesterday</Label>
                                     <Separator className="my-2 bg-slate-200" />
-                                    {entry.notSoWellContent.map((content) => {
+                                    {entry.notSoWellContent.map((content) => (
                                         <React.Fragment key={content}>
                                             <div className="text-sm">
                                                 {content}
                                             </div>
                                         </React.Fragment>
-                                    })}
+                                    ))}
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
                                     <Label htmlFor="name">I could improve on</Label>

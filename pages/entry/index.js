@@ -1,6 +1,6 @@
 import * as Form from '@radix-ui/react-form';
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { useRouter } from 'next/router';
@@ -17,9 +17,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import {formHeaderAndPlaceholders} from '../../data/form/formData'
+import { fetcher } from '../../utils/fetcher';
+import useSWR from 'swr'
 
 export default function Entry(props){
     const { data: session } = useSession()
+    const { data: entries, error, isLoading } = useSWR(`/api/entry/get/all?params=${session.user.email}`, fetcher)
     const router = useRouter()
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [disabled, setDisabled] = useState(true)
@@ -38,7 +41,29 @@ export default function Entry(props){
         notWellThree: '',
         improveOne: '',
     });
-    
+    const todayEntry = entries?.entries.filter(entry => entry.todayDate == selectedDate.toDateString())[0]
+    console.log(todayEntry)
+
+    useEffect(() => {
+        if(!isLoading && todayEntry){
+            setFormData({
+                gratefulOne: todayEntry.gratefulContent[0],
+                gratefulTwo: todayEntry.gratefulContent[1],
+                gratefulThree: todayEntry.gratefulContent[2],
+                focusOne: todayEntry.focusContent[0],
+                focusTwo: todayEntry.focusContent[1],
+                focusThree: todayEntry.focusContent[2],
+                wentWellOne: todayEntry.wentWellContent[0],
+                wentWellTwo: todayEntry.wentWellContent[1],
+                wentWellThree: todayEntry.wentWellContent[2],
+                notWellOne: todayEntry.notSoWellContent[0],
+                notWellTwo: todayEntry.notSoWellContent[1],
+                notWellThree: todayEntry.notSoWellContent[2],
+                improveOne: todayEntry.improvementContent[0]
+            })
+        }
+    },[isLoading, todayEntry])
+
     const handleChange = (e) => {
         const {name, value} = e.target
         setFormData({...formData, [name]: value})
@@ -156,7 +181,7 @@ export default function Entry(props){
 
 export async function getServerSideProps(context){
     const session = await getServerSession(context.req, context.res, authOptions)
-    console.log("session from gssp: ", session)
+    // console.log("session from gssp: ", session)
     if (!session) {
       return{
         redirect: {
