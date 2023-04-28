@@ -4,8 +4,8 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 export default function NavMenu() {
   const navItems = [
     {title: "Home", url: "/"},
-    {title: "Today's Entry", url:"/entry"},
-    {title: "All Entries", url:"/entry/all"},
+    {title: "Today", url:"/entry"},
+    {title: "Entries", url:"/entry/all"},
   ]
   return (
       <NavigationMenu.Root className="relative z-[1] flex w-screen ml-4 mt-2 md:mt-0 md:ml-10">
