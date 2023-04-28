@@ -41,7 +41,7 @@ export default function Home(props) {
           <div className="relative z-20 flex items-center text-lg font-medium">
             <Command className="mr-2 h-6 w-6" /> Get Better Daily
           </div>
-          <div className={isBrowser ? "relative z-20 mt-[95%]" : "relative  mt-[70%]"}>
+          <div className="relative md:z-20 md:mt-[90%] mt-[70%]">
             <blockquote className="space-y-1">
               <p className="text-lg italic">
                 The unexamined life is not worth living
@@ -53,7 +53,7 @@ export default function Home(props) {
         <div className="lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[300px] px-4">
             <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight my-2">
+              <h1 className="text-2xl font-semibold tracking-tight  md:my-2">
                 Introspect Today
               </h1>
               <ActionButton name="Start Journaling"/>
