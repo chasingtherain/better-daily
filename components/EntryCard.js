@@ -44,7 +44,7 @@ export function EntryCard({entry}) {
                                     ))}
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
-                                    <Label className="font-semibold text-md" htmlFor="name">These didn't go well yesterday</Label>
+                                    <Label className="font-semibold text-md" htmlFor="name">These didn&apos;t go well yesterday</Label>
                                     <Separator className="my-2 bg-slate-300" />
                                     {entry.notSoWellContent.map((content,index) => (
                                         <EntryDetails key={index} content={content}/>
