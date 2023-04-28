@@ -14,7 +14,7 @@ export default function NavMenu() {
           <NavigationMenu.Item key={index}>
             <NavigationMenu.Link
               href={item.url}
-              className="text-blue-300 hover:bg-blue-700 block select-none rounded-[4px] px-1.5 md:px-3 md:py-2 text-[13px] md:text-[15px] font-medium leading-none no-underline"
+              className="dark:hover:bg-blue-700 hover:bg-blue-50 block select-none rounded-[4px] px-1.5 md:px-3 md:py-2 text-[13px] md:text-[15px] font-medium leading-none no-underline"
             >
                 {item.title}
             </NavigationMenu.Link>

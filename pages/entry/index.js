@@ -180,7 +180,7 @@ export default function Entry(props){
             <Form.Submit asChild>
                 
                 <Button
-                    className={`${disabled ? "opacity-25" : "opacity-100"} mt-4 mb-20 bg-slate-100 w-full text-blue-600 border-2 border-slate-300 hover:bg-slate-400 rounded-[4px] text-[16px] leading-none`}
+                    className={`mt-4 mb-20 w-full rounded-[4px] text-[16px] leading-none`}
                     disabled = {disabled} 
                     onClick={(e) => handleSubmit(e)}
                 >
