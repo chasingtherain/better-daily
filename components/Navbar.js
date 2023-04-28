@@ -11,7 +11,7 @@ export default function Navbar() {
 
     if(session){
         return (
-            <div className="flex mt-5 justify-between items-center px-1 mr-2 md:mr-0 md:px-5 border-2">
+            <div className="flex mt-5 justify-between items-center px-1 mr-2 md:mr-0 md:px-5">
                 <NavMenu/>
                 <div className="flex gap-1 md:gap-2">
                     <ThemeChanger/> 
