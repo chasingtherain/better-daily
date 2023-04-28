@@ -5,8 +5,7 @@ import ActionButton from "../components/ui/ActionButton"
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { quotes } from "../data/quotes"
-import {BrowserView, MobileView, isBrowser, isMobile} from 'react-device-detect';
-import WebLanding from "../components/landing/WebLanding"
+import {isBrowser, isMobile} from 'react-device-detect';
 
 export default function Home(props) {
   const { data: session, status } = useSession()
@@ -93,7 +92,6 @@ export async function getServerSideProps(context){
     props: {
       session,
       quote: chosenQuote,
-      isMobile: isMobile
     },
   }
 }
