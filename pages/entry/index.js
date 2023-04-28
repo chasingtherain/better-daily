@@ -127,14 +127,14 @@ export default function Entry(props){
         <div className='h-screen px-[5%] mt-6 md:px-[40%]'>
             <Form.Root>
                 <Form.Field className="grid mb-[10px]">
-                    <Form.Label className="text-[16px] font-semibold leading-[35px] dark:text-white">Date</Form.Label>
+                    <Form.Label className="text-[16px] font-semibold leading-[35px]">Date</Form.Label>
 
                     <Popover className="">
                         <PopoverTrigger asChild>
                             <Button
                             variant={"outline"}
                             className={cn(
-                                "w-[280px] justify-start text-left font-normal border-black",
+                                "w-[280px] justify-start text-left font-normal box-border dark:border-slate-50",
                                 !selectedDate && "text-muted-foreground"
                             )}
                             >
@@ -156,14 +156,14 @@ export default function Entry(props){
                     formHeaderAndPlaceholders.map((field,index) => 
                     (<Form.Field key={index} className="grid mb-[10px]" name={field.name}>
                         <div className="flex items-baseline justify-between">
-                            <Form.Label className="text-[16px] font-semibold leading-[35px] dark:text-white">{field.title}</Form.Label>
+                            <Form.Label className="text-[16px] font-semibold leading-[35px]">{field.title}</Form.Label>
                         </div>
                         {
                             field.inputField.map((input,index)=>
                                 <Form.Control asChild key={index}>
                                     <Input
                                     maxLength={50}
-                                    className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none dark:text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
+                                    className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
                                     type={input.type}
                                     name={input.name}
                                     value={formData[input.name]}
@@ -180,7 +180,7 @@ export default function Entry(props){
             <Form.Submit asChild>
                 
                 <Button
-                    className={`${disabled ? "opacity-25" : "opacity-100"} mt-4 mb-20 bg-slate-100 w-full text-blue-600 border-2 border-slate-300 dark:text-white hover:bg-slate-400 rounded-[4px] text-[16px] leading-none`}
+                    className={`${disabled ? "opacity-25" : "opacity-100"} mt-4 mb-20 bg-slate-100 w-full text-blue-600 border-2 border-slate-300 hover:bg-slate-400 rounded-[4px] text-[16px] leading-none`}
                     disabled = {disabled} 
                     onClick={(e) => handleSubmit(e)}
                 >

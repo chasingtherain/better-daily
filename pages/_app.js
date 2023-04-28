@@ -1,10 +1,12 @@
 import { SessionProvider} from 'next-auth/react';
 import '../styles/globals.css'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
+import { ThemeProvider } from 'next-themes'
 
 export default function App({ Component, pageProps }) {
+  const [theme, setTheme] = useState('dark')
 
   return <Fragment>
     <Head>
@@ -13,8 +15,10 @@ export default function App({ Component, pageProps }) {
       <meta name="keywords" content="grateful, gratefulness, daily journal,reflection, stoic, progress"></meta>
     </Head>
     <SessionProvider session={pageProps.session}>
-      <Navbar/>
-      <Component {...pageProps} />
+      <ThemeProvider attribute="class">
+        <Navbar/>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </SessionProvider>
   </Fragment>
 }

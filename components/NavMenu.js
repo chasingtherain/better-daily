@@ -8,13 +8,13 @@ export default function NavMenu() {
     {title: "All Entries", url:"/entry/all"},
   ]
   return (
-      <NavigationMenu.Root className="relative z-[1] flex w-screen ml-4 md:ml-10">
-        <NavigationMenu.List className="flex rounded-[4px] bg-white dark:bg-white p-2 shadow-xl shadow-blue-500/50">
+      <NavigationMenu.Root className="relative z-[1] flex w-screen ml-4 mt-2 md:mt-0 md:ml-10">
+        <NavigationMenu.List className="flex rounded-[4px] p-2 shadow-lg shadow-blue-500/50 border-2">
           {navItems.map((item,index)=> 
           <NavigationMenu.Item key={index}>
             <NavigationMenu.Link
               href={item.url}
-              className="text-blue-500 dark:text-white hover:bg-gray-100 block select-none rounded-[4px] px-3 py-2 text-[15px] font-medium leading-none no-underline"
+              className="text-blue-300 hover:bg-blue-700 block select-none rounded-[4px] px-1.5 md:px-3 md:py-2 text-[13px] md:text-[15px] font-medium leading-none no-underline"
             >
                 {item.title}
             </NavigationMenu.Link>

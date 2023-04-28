@@ -5,7 +5,7 @@ import ActionButton from "../components/ui/ActionButton"
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { quotes } from "../data/quotes"
-
+import { Icons } from "../components/icons"
 
 export default function Home(props) {
   const { data: session, status } = useSession()
@@ -13,11 +13,11 @@ export default function Home(props) {
   if (session) {
     return (
       <div className="h-screen border-2 border-transparent">
-          <p className="dark:text-white text-xl md:text-[35px] mt-20 mb-4 text-center">Welcome back, <span className="font-medium">{session.user.name}</span></p>
+          <p className="text-xl md:text-[35px] mt-20 mb-4 text-center">Welcome back, <span className="font-medium">{session.user.name}</span></p>
           <div className="my-32 md:my-38 mx-[10%] md:mx-[25%] text-center">
-              <p className="dark:text-white text-xl md:text-3xl leading-normal font-serif tracking-normal">Get Better Daily, Start Doing.</p>
-              <p className="dark:text-white text-xl md:text-4xl leading-normal font-serif tracking-wide italic my-8">{`“${props.quote.text}”`}</p>
-              <p className="dark:text-white text-xl md:text-2xl tracking-tight italic mb-10"> {`${props.quote.author}`}</p>
+              <p className="text-xl md:text-3xl leading-normal font-serif tracking-normal">Get Better Daily, Start Doing.</p>
+              <p className="text-xl md:text-4xl leading-normal font-serif tracking-wide italic my-8">{`“${props.quote.text}”`}</p>
+              <p className="text-xl md:text-2xl tracking-tight italic mb-10"> {`${props.quote.author}`}</p>
               <ActionButton name="Journal Today" link="/entry"/>
           </div>
       </div>
@@ -26,25 +26,9 @@ export default function Home(props) {
   if(!session){
     return (
       <>
-        <div className="md:hidden">
-          {/* <Image
-            src="/examples/authentication-light.png"
-            width={1280}
-            height={843}
-            alt="Authentication"
-            className="block dark:hidden"
-          />
-          <Image
-            src="/examples/authentication-dark.png"
-            width={1280}
-            height={843}
-            alt="Authentication"
-            className="hidden dark:block"
-          /> */}
-        </div>
         <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
   
-          <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
+          <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex">
             <div
               className="absolute inset-0 bg-cover"
               style={{
