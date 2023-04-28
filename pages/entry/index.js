@@ -134,7 +134,7 @@ export default function Entry(props){
                             <Button
                             variant={"outline"}
                             className={cn(
-                                "w-[280px] justify-start text-left font-normal box-border dark:border-slate-50",
+                                "justify-start text-left font-normal",
                                 !selectedDate && "text-muted-foreground"
                             )}
                             >
@@ -163,7 +163,7 @@ export default function Entry(props){
                                 <Form.Control asChild key={index}>
                                     <Input
                                     maxLength={50}
-                                    className="box-border my-1 w-full bg-blackA5 shadow-blackA9 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] selection:color-white selection:bg-blackA9 placeholder:text-gray-300 "
+                                    className="my-1"
                                     type={input.type}
                                     name={input.name}
                                     value={formData[input.name]}

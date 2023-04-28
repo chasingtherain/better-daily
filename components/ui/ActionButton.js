@@ -5,7 +5,7 @@ import { Button } from './button'
 export default function ActionButton({action,name,link}) {
   if(action){
     return (
-      <Button onClick={action} className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-bold rounded-md shadow-2xl group border-2 light:bg-black mr-2">
+      <Button onClick={action} className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-bold rounded-md shadow-2xl group border-2 hover:text-white light:bg-black mr-2">
         <span className="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"></span>
         {/* <!-- Top glass gradient --> */}
         <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>
@@ -22,7 +22,7 @@ export default function ActionButton({action,name,link}) {
     )
   }
   return (
-    <Link href={link ? link : "/api/auth/signin"} className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-bold rounded-md shadow-2xl group border-2 mr-2 dark:text-black dark:bg-white">
+    <Link href={link ? link : "/api/auth/signin"} className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-bold rounded-md shadow-2xl group border-2 mr-2 dark:text-black dark:bg-white hover:text-white hover:dark:text-white">
         <span className="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"></span>
         {/* <!-- Top glass gradient --> */}
         <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>

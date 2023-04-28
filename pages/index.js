@@ -41,12 +41,12 @@ export default function Home(props) {
           <div className="relative z-20 flex items-center text-lg font-medium">
             <Command className="mr-2 h-6 w-6" /> Get Better Daily
           </div>
-          <div className={isBrowser ? "relative z-20 mt-[100%]" : "relative mb-0"}>
-            <blockquote className="space-y-2">
+          <div className={isBrowser ? "relative z-20 mt-[95%]" : "relative  mt-[70%]"}>
+            <blockquote className="space-y-1">
               <p className="text-lg italic">
                 The unexamined life is not worth living
               </p>
-              <footer className="text-sm">Socrates</footer>
+              <footer className="text-md italic">- Socrates</footer>
             </blockquote>
           </div>
         </div>
