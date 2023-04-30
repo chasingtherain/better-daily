@@ -44,8 +44,10 @@ export default function Entry(props){
     const [formData, setFormData] = useState(defaultFormState);
     const [disabled, setDisabled] = useState(true)
     const [buttonIsLoading, setButtonIsLoading] = useState(false)
+    const [stepCount, setStepCount] = useState(0)
     const todayEntry = entries?.entries?.filter(entry => entry.todayDate == selectedDate?.toDateString())[0]
-    console.log(todayEntry)
+    // console.log(todayEntry)
+    const currentFormAndPlaceHolders = formHeaderAndPlaceholders?.filter(record => record.step == stepCount)
 
     useEffect(() => {
         if(!isLoading && todayEntry){
@@ -153,7 +155,7 @@ export default function Entry(props){
                     </Popover>
                 </Form.Field>
                 {
-                    formHeaderAndPlaceholders.map((field,index) => 
+                    currentFormAndPlaceHolders.map((field,index) => 
                     (<Form.Field key={index} className="grid mb-[10px]" name={field.name}>
                         <div className="flex items-baseline justify-between">
                             <Form.Label className="text-[16px] font-semibold leading-[35px]">{field.title}</Form.Label>
@@ -176,17 +178,32 @@ export default function Entry(props){
                     )
                 }
             </Form.Root>
-            
-            <Form.Submit asChild>
-                
+
+            <div className='flex gap-10 px-5'>
                 <Button
+                        className={`my-2 w-full rounded-[4px] text-[16px]`}
+                        onClick={() => setStepCount(stepCount - 1)}
+                        disabled= {stepCount <= 0}
+                    >
+                        Previous
+                </Button>
+                <Button
+                        className={`my-2 w-full rounded-[4px] text-[16px]`}
+                        onClick={() => setStepCount(stepCount + 1)}
+                        disabled= {stepCount == 2}
+                    >
+                        Next
+                </Button>
+            </div>
+            <Form.Submit asChild>
+                {stepCount == 2 && <Button
                     className={`mt-4 mb-20 w-full rounded-[4px] text-[16px] leading-none`}
                     disabled = {disabled} 
                     onClick={(e) => handleSubmit(e)}
                 >
                     {buttonIsLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
                     {buttonIsLoading ? "Submitting..." : "Submit Reflection"}
-                </Button>
+                </Button>}
             </Form.Submit>
         </div>
     )
