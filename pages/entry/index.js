@@ -49,6 +49,16 @@ export default function Entry(props){
     // console.log(todayEntry)
     const currentFormAndPlaceHolders = formHeaderAndPlaceholders?.filter(record => record.step == stepCount)
 
+    let isNextButtonDisabled = true
+
+    if (stepCount === 0) {
+        isNextButtonDisabled = !formData.focusOne || !formData.gratefulOne;
+      } else if (stepCount === 1) {
+        isNextButtonDisabled = !formData.wentWellOne || !formData.notWellOne;
+      } else {
+        isNextButtonDisabled = true;
+      }    
+
     useEffect(() => {
         if(!isLoading && todayEntry){
             setFormData({
@@ -136,7 +146,7 @@ export default function Entry(props){
                             <Button
                             variant={"outline"}
                             className={cn(
-                                "justify-start text-left font-normal",
+                                "justify-start text-left font-normal dark:border-zinc-50",
                                 !selectedDate && "text-muted-foreground"
                             )}
                             >
@@ -162,10 +172,10 @@ export default function Entry(props){
                         </div>
                         {
                             field.inputField.map((input,index)=>
-                                <Form.Control asChild key={index}>
+                                <Form.Control asChild key={index} required={index == 0}>
                                     <Input
                                     maxLength={50}
-                                    className="my-1"
+                                    className="my-1 dark:border-zinc-50"
                                     type={input.type}
                                     name={input.name}
                                     value={formData[input.name]}
@@ -174,6 +184,9 @@ export default function Entry(props){
                                     />
                                 </Form.Control>)
                         }
+                        <Form.Message match="valueMissing">
+                            This field is required
+                        </Form.Message>
                     </Form.Field>)
                     )
                 }
@@ -190,7 +203,7 @@ export default function Entry(props){
                 <Button
                         className={`my-2 w-full rounded-[4px] text-[16px]`}
                         onClick={() => setStepCount(stepCount + 1)}
-                        disabled= {stepCount == 2}
+                        disabled= {isNextButtonDisabled}
                     >
                         Next
                 </Button>
