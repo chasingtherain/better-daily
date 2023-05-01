@@ -3,8 +3,9 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
     ],
+    "downlevelIteration": true,
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
@@ -26,7 +27,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/NavMenu.js", "lib/prisma.ts"  ],
+, "lib/prisma.ts"  ],
   "exclude": [
     "node_modules"
   ]
