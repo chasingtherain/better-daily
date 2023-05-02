@@ -5,19 +5,33 @@ import ActionButton from "../components/ui/ActionButton"
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { quotes } from "../data/quotes"
-import {isBrowser, isMobile} from 'react-device-detect';
 
-export default function Home(props) {
+
+type IndexProps = {
+  quote: {
+    id: number,
+    text: string,
+    author: string
+  },
+  // user:{
+  //   name: string,
+  //   email: string,
+  //   image: string,
+  // }
+}
+
+export default function Home(props: IndexProps) {
+  const { quote } = props
   const { data: session, status } = useSession()
-  
+  console.log(props)
   if (session) {
     return (
       <div className="h-screen border-2 border-transparent">
           <p className="text-xl md:text-[35px] mt-20 mb-4 text-center">Welcome back, <span className="font-medium">{session.user.name}</span></p>
           <div className="my-32 md:my-38 mx-[10%] md:mx-[25%] text-center">
               <p className="text-xl md:text-3xl leading-normal font-serif tracking-normal">Get Better Daily, Start Doing.</p>
-              <p className="text-xl md:text-4xl leading-normal font-serif tracking-wide italic my-8">{`“${props.quote.text}”`}</p>
-              <p className="text-xl md:text-2xl tracking-tight italic mb-10"> {`${props.quote.author}`}</p>
+              <p className="text-xl md:text-4xl leading-normal font-serif tracking-wide italic my-8">{`“${quote.text}”`}</p>
+              <p className="text-xl md:text-2xl tracking-tight italic mb-10"> {`${quote.author}`}</p>
               <ActionButton name="Journal Today" link="/entry"/>
           </div>
       </div>

@@ -15,7 +15,7 @@ export default function Navbar() {
                 <NavMenu/>
                 <div className="flex gap-1 md:gap-2">
                     <ThemeChanger/> 
-                    {status === 'authenticated' ? <UserAvatar image={session.user.image} name={session.user.name}/> : <ActionButton name="Login" action=""/>}
+                    {status === 'authenticated' ? <UserAvatar image={session.user.image} name={session.user.name}/> : <ActionButton name="Login"/>}
                 </div>
             </div>
         );

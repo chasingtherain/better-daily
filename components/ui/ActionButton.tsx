@@ -2,7 +2,16 @@ import Link from 'next/link'
 import React from 'react'
 import { Button } from './button'
 
-export default function ActionButton({action,name,link}) {
+type AboutButtonProps = {
+  action?: () => void,
+  name?: string,
+  link?: string
+}
+
+export default function ActionButton(props: AboutButtonProps) {
+
+  const {action,name,link} = props
+  
   if(action){
     return (
       <Button onClick={action} className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-bold rounded-md shadow-2xl group border-2 hover:text-white light:bg-black mr-2">

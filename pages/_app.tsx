@@ -1,6 +1,6 @@
 import { SessionProvider} from 'next-auth/react';
 import '../styles/globals.css'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import { ThemeProvider } from 'next-themes'
