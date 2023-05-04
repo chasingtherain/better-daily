@@ -1,28 +1,24 @@
 import * as Form from '@radix-ui/react-form';
-import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { useRouter } from 'next/router';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-
 import { format } from "date-fns"
 import { Calendar as CalendarIcon, Loader2 as Loader } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Popover,PopoverContent,PopoverTrigger } from "@/components/ui/popover"
 import {formHeaderAndPlaceholders} from '../../data/form/formData'
 import { fetcher } from '../../utils/fetcher';
 import useSWR from 'swr'
 import LoadingForm from '../../components/loadingSkeleton/LoadingForm';
+import { ServerProps } from '@/types/serverProps';
 
-export default function Entry(props){
-    const { data: session } = useSession()
+
+export default function Entry(props: ServerProps){
+    const {session} = props
     const { data: entries, error, isLoading } = useSWR(`/api/entry/get/all?params=${session.user.email}`, fetcher)
     const defaultFormState = {
         gratefulOne: '',
@@ -93,7 +89,7 @@ export default function Entry(props){
     const handleSubmit = (e) => {
         e.preventDefault()
         setButtonIsLoading(true)
-        console.log("submitted")
+        // console.log("submitted")
         let submittedData = {
             grateful: [formData.gratefulOne,formData.gratefulTwo,formData.gratefulThree],
             focus: [formData.focusOne,formData.focusTwo,formData.focusThree],
@@ -107,7 +103,7 @@ export default function Entry(props){
         let validInput = Boolean(submittedData.grateful.concat(submittedData.focus).join("").trim())
         if(!validInput){
             setButtonIsLoading(false)
-            return console.log("invalid form input")
+            // return console.log("invalid form input")
         }
 
 
@@ -119,10 +115,10 @@ export default function Entry(props){
         })
         .then(response => {
           // handle response
-            console.log("form submission successful")
+            // console.log("form submission successful")
             // inform user that form is submitted
             // redirect user to entry?
-            console.log("response: ", response)
+            // console.log("response: ", response)
             if(response.ok){
                 router.push('/entry/all')
             }
@@ -138,10 +134,10 @@ export default function Entry(props){
     return(
         <div className='h-screen px-[5%] mt-6 md:px-[40%]'>
             <Form.Root>
-                <Form.Field className="grid mb-[10px]">
+                <Form.Field name="date" className="grid mb-[10px]">
                     <Form.Label className="text-[16px] font-semibold leading-[35px]">Date</Form.Label>
 
-                    <Popover className="">
+                    <Popover>
                         <PopoverTrigger asChild>
                             <Button
                             variant={"outline"}
@@ -233,7 +229,7 @@ export async function getServerSideProps(context){
         }
       }
     }
-  
+
     return {
       props: {
         session,

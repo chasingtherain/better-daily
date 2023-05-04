@@ -1,28 +1,15 @@
-import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { Command } from "lucide-react"
 import ActionButton from "../components/ui/ActionButton"
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { quotes } from "../data/quotes"
+import { ServerProps } from "@/types/serverProps"
 
 
-type IndexProps = {
-  quote: {
-    id: number,
-    text: string,
-    author: string
-  },
-  // user:{
-  //   name: string,
-  //   email: string,
-  //   image: string,
-  // }
-}
+export default function Home(props: ServerProps) {
+  const { session, quote } = props
 
-export default function Home(props: IndexProps) {
-  const { quote } = props
-  const { data: session, status } = useSession()
   console.log(props)
   if (session) {
     return (

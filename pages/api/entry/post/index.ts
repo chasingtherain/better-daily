@@ -27,8 +27,8 @@ export default async function handler(req, res) {
           todayDate: selectedDate
         },
       })
-      console.log("existingRecord: ", existingRecord)
-      console.log("user: ", user)
+      // console.log("existingRecord: ", existingRecord)
+      // console.log("user: ", user)
       if(existingRecord){
         const updatedRecord = await prisma.entry.update({
             where: {

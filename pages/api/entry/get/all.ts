@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     const allEntries = await prisma.entry.findMany({
         where: {authorId: user.id}
     })
-    console.log("allEntries: ",allEntries)
+    // console.log("allEntries: ",allEntries)
     
     res.status(200).json({ message: 'fetch successful', entries: allEntries })
 }

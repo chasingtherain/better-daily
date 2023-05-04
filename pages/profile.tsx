@@ -3,9 +3,10 @@ import { signOut, useSession } from 'next-auth/react';
 import ActionButton from '../components/ui/ActionButton';
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
+import { ServerProps } from '@/types/serverProps';
 
-export default function Profile() {
-  const { data: session, status } = useSession()
+export default function Profile(props: ServerProps) {
+  const {session} = props
 
   if (session) {
     return (

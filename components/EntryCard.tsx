@@ -51,7 +51,7 @@ export function EntryCard({entry}) {
                                 <div className="flex flex-col space-y-1.5">
                                     <Label className="font-semibold text-md" htmlFor="name">I could improve on</Label>
                                     <Separator className="my-2 bg-slate-300" />
-                                    <EntryDetails content={entry.improvementContent[0]}/>
+                                    <EntryDetails key="improvement" content={entry.improvementContent[0]}/>
                                 </div>
                             </React.Fragment>
                     </div>
