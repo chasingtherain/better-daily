@@ -42,7 +42,7 @@ model Feedback {
   id                  String    @default(cuid()) @id
   createdAt           DateTime  @default(now()) @map(name: "created_at")
   feedbackContent     String
-  channel             String
+  channel             String?
   nps                 Int?
   authorId            String
   author              User?     @relation(fields: [authorId], references: [id])

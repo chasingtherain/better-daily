@@ -4,6 +4,10 @@ import ActionButton from '../components/ui/ActionButton';
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { ServerProps } from '@/types/serverProps';
+import { Button } from '@/components/ui/button';
+import { buttonVariants } from "@/components/ui/button"
+import Link from 'next/link';
+
 
 export default function Profile(props: ServerProps) {
   const {session} = props
@@ -23,7 +27,11 @@ export default function Profile(props: ServerProps) {
                 defaultValue={session.user.email}
                 />
             </div>
+
+
             <ActionButton name="Log Out" action={() => signOut({ callbackUrl: 'http://localhost:3000/' })}/>
+            
+            <Link href='/feedback' className={`dark:bg-white text-black hover:text-blue-600 ${buttonVariants({ variant: "outline" })}`}>Have a Suggestion?</Link>
       </div>
     )
   }
