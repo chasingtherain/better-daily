@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,30 +8,42 @@ datasource db {
 }
 
 model User {
-  id            String    @default(cuid()) @id
+  id            String    @id @default(cuid())
   email         String    @unique
   emailVerified DateTime?
   image         String?
   name          String?
-  authPartner   String?   
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  entries       Entry[]
+  authPartner   String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
   accounts      Account[]
+  entries       Entry[]
   sessions      Session[]
-  @@map(name: "users")
+  feedback      Feedback[]
+
+  @@map("users")
 }
 
 model Entry {
+  id                 String   @id @default(cuid())
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  todayDate          String
+  gratefulContent    String[]
+  focusContent       String[]
+  wentWellContent    String[]
+  notSoWellContent   String[]
+  improvementContent String[]
+  authorId           String
+  author             User     @relation(fields: [authorId], references: [id])
+}
+
+model Feedback {
   id                  String    @default(cuid()) @id
   createdAt           DateTime  @default(now()) @map(name: "created_at")
-  updatedAt           DateTime  @updatedAt @map(name: "updated_at")
-  todayDate           String
-  gratefulContent     String[]
-  focusContent        String[]
-  wentWellContent     String[]
-  notSoWellContent    String[]
-  improvementContent  String[]
+  feedbackContent     String
+  channel             String
+  nps                 Int?
   authorId            String
   author              User?     @relation(fields: [authorId], references: [id])
 }
@@ -54,18 +63,17 @@ model Account {
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
-
-  user User @relation(fields:[userId], references:[id], onDelete: Cascade)
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique@map("session_token")
+  sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
-  user         User     @relation(fields:[userId], references:[id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
