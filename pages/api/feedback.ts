@@ -20,14 +20,20 @@ export default async function handler(req, res) {
           })
 
         if (user){
-            const newFeedback: Feedback = await prisma.feedback.create({
-                data: {
-                    feedbackContent: feedbackContent,
-                    channel: channel.length ? channel : null,
-                    authorId: user.id
-            },
-            });
+            try {
+                const newFeedback: Feedback = await prisma.feedback.create({
+                    data: {
+                        feedbackContent: feedbackContent,
+                        channel: channel ? channel : null,
+                        authorId: user.id
+                },
+                });
+
+                res.status(200).json({ message: 'feedback submitted'})
+                
+            } catch (error) {
+                console.log("Error submitting feedback data: ", error)
+                res.status(500).json({message: 'feedback submission failed'})
+            }
         }
-    
-    res.status(200).json({ message: 'feedback submitted'})
 }

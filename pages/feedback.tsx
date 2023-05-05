@@ -6,6 +6,7 @@ import { ChevronDownIcon, ChevronUpIcon, Loader2 as Loader } from "lucide-react"
 import * as Select from '@radix-ui/react-select';
 import { useSession } from 'next-auth/react';
 import { Feedback } from '@/types/feedback';
+import { useRouter } from 'next/router';
 
 
 export default function Feedback() {
@@ -14,7 +15,8 @@ export default function Feedback() {
         feedbackContent: '',
         channel: null,
     }
-    const channelOptions = ["Facebook", "Product Hunt"]
+    const router = useRouter()
+    const channelOptions = ["","Facebook", "Product Hunt"]
     const [buttonIsLoading, setButtonIsLoading] = useState(false)
     const [disabledSubmitBtn, setDisabledSubmitBtn] = useState(true)
     const [feedbackData, setFeedbackData] = useState(defaultFormState)
@@ -28,7 +30,7 @@ export default function Feedback() {
             // select.root does not have e.target, hence this logic
             setFeedbackData({...feedbackData, channel: e})
         }
-
+        console.log("change recorded")
         setDisabledSubmitBtn(false)
     }
 
@@ -51,23 +53,20 @@ export default function Feedback() {
         .then(response => {
 
             if(response.ok){
+                router.push('/')
                 console.log("form submitted")
-                // once resp received, set disabled submit button to false and loading button to false
-                setFeedbackData(defaultFormState)
-                setButtonIsLoading(false)
-                setDisabledSubmitBtn(false)
             }
         })
         .catch(error => {
             // handle error
             // once resp received, set disabled submit button to false and loading button to false
             setButtonIsLoading(false)
-            setDisabledSubmitBtn(false)
+            setDisabledSubmitBtn(true)
         });
 
         
     }
-
+    console.log("feedbackData.channel: ", feedbackData.channel)
     return (
         <div className='h-screen px-[5%] mt-6 md:px-[40%]'>
             <Form.Root>
@@ -93,7 +92,7 @@ export default function Feedback() {
                     <Select.Root
                         name="channel"
                         onValueChange={handleChange}
-                        value={feedbackData.channel}
+                        value = {feedbackData.channel ? feedbackData.channel : undefined}
                     >
                         <Select.Trigger
                             className="border-2 dark:border-white inline-flex items-center justify-center rounded px-[15px] text-[15px] leading-none h-[35px] gap-[5px] shadow-[0_2px_10px] shadow-black/10"
@@ -107,7 +106,7 @@ export default function Feedback() {
                         </Select.Icon>
                         </Select.Trigger>
                         <Select.Portal>
-                            <Select.Content className="border-2 dark:bg-black overflow-hidden rounded-md shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
+                            <Select.Content className="border-2 bg-white dark:bg-black overflow-hidden rounded-md shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
                                 <Select.ScrollUpButton className="flex items-center justify-center h-[25px] cursor-default">
                                     <ChevronUpIcon />
                                 </Select.ScrollUpButton>
