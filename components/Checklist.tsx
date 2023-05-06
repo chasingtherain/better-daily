@@ -21,7 +21,6 @@ export default function Checklist({list}) {
         setCheckListData(stored ? JSON.parse(stored) : defaultListState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    console.log("checkListData: ", checkListData)
 
     const handleCheck = (checkName) => {
         setCheckListData({...checkListData, [checkName]: !checkListData[checkName]})
@@ -32,10 +31,11 @@ export default function Checklist({list}) {
     }
 
     return (
-        <div className="flex flex-col border-2 justify-center items-center mt-2 space-x-1">
-            <div key={`c1`} className='flex justify-center items-center my-5'>
+        // <div className="flex flex-col border-2 justify-center items-center mt-2 space-x-1">
+        <div className="border-2 rounded-md md:mx-36 md:px-20">
+            <div key={`c1`} className='flex my-5 items-center'>
                 <Checkbox.Root
-                    className="flex h-[30px] w-[30px] items-center justify-center rounded-[4px] bg-white"
+                    className="flex h-[20px] w-[20px] md:h-[30px] md:w-[30px] items-center justify-center rounded-[4px] bg-white"
                     checked={checkListData.checkedOne}
                     onCheckedChange={() => handleCheck("checkedOne")}
                     id={`c1`}
@@ -48,9 +48,9 @@ export default function Checklist({list}) {
                     {checkListData.listOneTitle}
                 </label>
             </div>
-            <div key={`c2`} className='flex justify-center items-center my-5'>
+            <div key={`c2`} className='flex my-5 items-center'>
                 <Checkbox.Root
-                    className="flex h-[30px] w-[30px] items-center justify-center rounded-[4px] bg-white"
+                    className="flex h-[20px] w-[20px] md:h-[30px] md:w-[30px] items-center justify-center rounded-[4px] bg-white"
                     checked={checkListData.checkedTwo}
                     onCheckedChange={() => handleCheck("checkedTwo")}
                     id={`c2`}
@@ -63,9 +63,9 @@ export default function Checklist({list}) {
                     {checkListData.listTwoTitle}
                 </label>
             </div>
-            <div key={`c3`} className='flex justify-center items-center my-5'>
+            <div key={`c3`} className='flex my-5 items-center'>
                 <Checkbox.Root
-                    className="flex h-[30px] w-[30px] items-center justify-center rounded-[4px] bg-white"
+                    className="flex h-[20px] w-[20px] md:h-[30px] md:w-[30px] items-center justify-center rounded-[4px] bg-white"
                     checked={checkListData.checkedThree}
                     onCheckedChange={() => handleCheck("checkedThree")}
                     id={`c3`}
