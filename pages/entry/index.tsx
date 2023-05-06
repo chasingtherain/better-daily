@@ -15,6 +15,7 @@ import { fetcher } from '../../utils/fetcher';
 import useSWR from 'swr'
 import LoadingForm from '../../components/loadingSkeleton/LoadingForm';
 import { ServerProps } from '@/types/serverProps';
+import { currentDate } from '@/utils/date';
 
 
 export default function Entry(props: ServerProps){
@@ -120,7 +121,9 @@ export default function Entry(props: ServerProps){
             // redirect user to entry?
             // console.log("response: ", response)
             if(response.ok){
-                router.push('/entry/all')
+                // remove item to ensure that focus list will be updated and refetched by useEffect in '/'
+                localStorage.removeItem(currentDate.toDateString())
+                router.push('/')
             }
         })
         .catch(error => {
@@ -170,7 +173,7 @@ export default function Entry(props: ServerProps){
                             field.inputField.map((input,index)=>
                                 <Form.Control asChild key={index} required={index == 0}>
                                     <Input
-                                    maxLength={50}
+                                    maxLength={45}
                                     className="my-1 dark:border-zinc-50"
                                     type={input.type}
                                     name={input.name}
