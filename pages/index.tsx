@@ -5,6 +5,7 @@ import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { quotes } from "../data/quotes"
 import { ServerProps } from "@/types/serverProps"
+import Checklist from "@/components/Checklist"
 
 
 export default function Home(props: ServerProps) {
@@ -20,6 +21,7 @@ export default function Home(props: ServerProps) {
               <p className="text-xl md:text-4xl leading-normal font-serif tracking-wide italic my-8">{`“${quote.text}”`}</p>
               <p className="text-xl md:text-2xl tracking-tight italic mb-10"> {`${quote.author}`}</p>
               <ActionButton name="Journal Today" link="/entry"/>
+              <Checklist/> 
           </div>
       </div>
     )
