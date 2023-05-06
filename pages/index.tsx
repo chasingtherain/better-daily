@@ -7,6 +7,7 @@ import { quotes } from "../data/quotes"
 import { ServerProps } from "@/types/serverProps"
 import Checklist from "@/components/Checklist"
 import prisma from "@/lib/prisma"
+import { currentDate } from "@/utils/date"
 
 
 export default function Home(props: ServerProps) {
@@ -88,16 +89,16 @@ export default function Home(props: ServerProps) {
   }
 
 export async function getServerSideProps(context){
-  const currentDate = new Date()
   const session = await getServerSession(context.req, context.res, authOptions)
   const randomNum = Math.floor(Math.random() * quotes.length)
   const chosenQuote = quotes.filter(quote => quote.id === randomNum)[0]
   let focusList = null;
   let existingRecord = null
 
+
   const user = await prisma.user.findUnique({
-    where: {email: session.user.email},
-  })
+      where: {email: session.user.email},
+    })
 
   if(user){
     existingRecord = await prisma.entry.findFirst({
@@ -109,7 +110,7 @@ export async function getServerSideProps(context){
   }
 
   if(existingRecord){
-    focusList = existingRecord.focusContent
+    focusList = existingRecord.focusContent.map(record => record)
   }
 
 

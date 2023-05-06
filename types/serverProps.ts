@@ -11,5 +11,5 @@ export interface ServerProps {
           image: string,
       },
     },
-    focusList: string[]
+    focusList: any[]
 }
