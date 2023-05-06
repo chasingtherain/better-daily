@@ -10,5 +10,6 @@ export interface ServerProps {
           email: string,
           image: string,
       },
-  }
+    },
+    focusList: string[]
 }

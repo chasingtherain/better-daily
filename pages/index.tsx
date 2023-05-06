@@ -6,10 +6,11 @@ import { getServerSession } from "next-auth/next"
 import { quotes } from "../data/quotes"
 import { ServerProps } from "@/types/serverProps"
 import Checklist from "@/components/Checklist"
+import prisma from "@/lib/prisma"
 
 
 export default function Home(props: ServerProps) {
-  const { session, quote } = props
+  const { session, quote, focusList } = props
 
   console.log(props)
   if (session) {
@@ -21,7 +22,7 @@ export default function Home(props: ServerProps) {
               <p className="text-xl md:text-4xl leading-normal font-serif tracking-wide italic my-8">{`“${quote.text}”`}</p>
               <p className="text-xl md:text-2xl tracking-tight italic mb-10"> {`${quote.author}`}</p>
               <ActionButton name="Journal Today" link="/entry"/>
-              <Checklist/> 
+              <Checklist list={focusList}/> 
           </div>
       </div>
     )
@@ -87,14 +88,36 @@ export default function Home(props: ServerProps) {
   }
 
 export async function getServerSideProps(context){
+  const currentDate = new Date()
   const session = await getServerSession(context.req, context.res, authOptions)
   const randomNum = Math.floor(Math.random() * quotes.length)
   const chosenQuote = quotes.filter(quote => quote.id === randomNum)[0]
+  let focusList = null;
+  let existingRecord = null
+
+  const user = await prisma.user.findUnique({
+    where: {email: session.user.email},
+  })
+
+  if(user){
+    existingRecord = await prisma.entry.findFirst({
+        where: {
+          authorId: user.id, // Foreign key condition
+          todayDate: currentDate.toDateString()
+        },
+    })
+  }
+
+  if(existingRecord){
+    focusList = existingRecord.focusContent
+  }
+
 
   return {
     props: {
       session,
       quote: chosenQuote,
+      focusList,
     },
   }
 }

@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     console.log(req.body)
     const user = await prisma.user.findUnique({
         where: {email: userEmail},
-      })
+    })
 
     // console.log(user)
     if(!user){
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
           authorId: user.id, // Foreign key condition
           todayDate: selectedDate
         },
-      })
+    })
       // console.log("existingRecord: ", existingRecord)
       // console.log("user: ", user)
       if(existingRecord){
