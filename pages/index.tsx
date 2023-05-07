@@ -96,11 +96,14 @@ export async function getServerSideProps(context){
   const chosenQuote = quotes.filter(quote => quote.id === randomNum)[0]
   let focusList = null;
   let existingRecord = null
+  let user = null
 
+  if(session){
+    user = await prisma.user.findUnique({
+        where: {email: session.user.email},
+      })
 
-  const user = await prisma.user.findUnique({
-      where: {email: session.user.email},
-    })
+  }
 
   if(user){
     existingRecord = await prisma.entry.findFirst({
