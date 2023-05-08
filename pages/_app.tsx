@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }) {
       <title>Better Daily</title>
       <meta name="description" content="A journal for daily reflection and a place to practice gratefulness"></meta>
       <meta name="keywords" content="grateful, gratefulness, daily journal,reflection, stoic, progress"></meta>
+      <link rel="shortcut icon" href="/favicon.ico" />
     </Head>
     <SessionProvider session={pageProps.session}>
       <ThemeProvider attribute="class">
