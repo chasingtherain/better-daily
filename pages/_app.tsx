@@ -1,3 +1,4 @@
+"use client"
 import { SessionProvider} from 'next-auth/react';
 import '../styles/globals.css'
 import { Fragment } from 'react'
