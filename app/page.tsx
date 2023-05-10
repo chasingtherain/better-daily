@@ -19,7 +19,27 @@ export default async function Page() {
     let user = null
     
     const session = await getServerSession(authOptions)
-    console.log("session: ", session)
+    // console.log("session: ", session)
+
+    if(session){
+        user = await prisma.user.findUnique({
+            where: {email: session.user.email},
+          })
+    
+    }
+    
+    if(user){
+        existingRecord = await prisma.entry.findFirst({
+            where: {
+                authorId: user.id, // Foreign key condition
+                todayDate: currentDate.toDateString()
+            },
+        })
+    }
+
+    if(existingRecord){
+        focusList = existingRecord.focusContent.map(record => record)
+    }
 
     if (session) {
       return (

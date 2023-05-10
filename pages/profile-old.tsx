@@ -15,6 +15,7 @@ export default function Profile(props: ServerProps) {
   if (session) {
     return (
         <div className="flex flex-col items-center gap-5 mt-10 md:mt-20">
+            <p>from profile</p>
             <div className='flex items-center gap-[15px] px-5'>
                 <Label.Root className="text-[15px] font-medium leading-[35px]" htmlFor="email">
                 Email
