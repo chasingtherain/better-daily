@@ -1,8 +1,7 @@
 
 import Navbar from "@/components/Navbar"
-import { SessionProvider } from "next-auth/react"
-import { ThemeProvider } from "next-themes"
 import Providers from "./providers"
+import '../styles/globals.css'
 
 export const metadata = {
   title: 'Better Daily',
