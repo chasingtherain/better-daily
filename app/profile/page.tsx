@@ -1,4 +1,4 @@
-import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { authOptions } from '@/pages/api/auth/[...nextauth]-old'
 import { getServerSession } from "next-auth/next"
 import ProfilePage from '@/components/ProfilePage';
 

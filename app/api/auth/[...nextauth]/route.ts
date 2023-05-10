@@ -5,7 +5,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 // import FacebookProvider from "next-auth/providers/facebook";
 // import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from "next-auth/providers/google";
-import prisma from '../../../lib/prisma';
+import prisma from '../../../../lib/prisma';
 
 const options = {
   providers: [
@@ -52,4 +52,4 @@ const options = {
 
 const handler:NextAuthOptions = NextAuth(options)
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST, handler as authOptions}

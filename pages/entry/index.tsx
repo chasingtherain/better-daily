@@ -1,6 +1,6 @@
 import * as Form from '@radix-ui/react-form';
 import { useEffect, useState } from 'react';
-import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { authOptions } from '@/pages/api/auth/[...nextauth]-old'
 import { getServerSession } from "next-auth/next"
 import { useRouter } from 'next/router';
 import { Input } from "@/components/ui/input"

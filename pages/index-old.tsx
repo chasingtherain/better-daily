@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Command } from "lucide-react"
 import ActionButton from "../components/ui/ActionButton"
-import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { authOptions } from '@/pages/api/auth/[...nextauth]-old'
 import { getServerSession } from "next-auth/next"
 import { quotes } from "../data/quotes"
 import { ServerProps } from "@/types/serverProps"

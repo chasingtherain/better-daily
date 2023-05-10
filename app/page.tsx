@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Command } from "lucide-react"
 import ActionButton from "../components/ui/ActionButton"
-import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { quotes } from "../data/quotes"
 import Checklist from "@/components/Checklist"
 import prisma from "@/lib/prisma"
@@ -19,7 +19,7 @@ export default async function Page() {
     let user = null
     
     const session = await getServerSession(authOptions)
-    // console.log("session: ", session)
+    console.log("session from index: ", session)
 
     if(session){
         user = await prisma.user.findUnique({

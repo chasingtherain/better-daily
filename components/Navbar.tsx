@@ -8,7 +8,7 @@ import { ThemeChanger } from "./ThemeChanger";
 
 export default function Navbar() {
     const { data: session, status } = useSession()
-    console.log(session, status)
+    console.log("session from navbar: ", session, status)
 
     if(session){
     // if(session){
