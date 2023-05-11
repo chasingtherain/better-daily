@@ -1,8 +1,9 @@
 import prisma from "@/lib/prisma"
 import { Feedback } from "@/types/feedback"
 import { User } from "@prisma/client"
+import { NextResponse } from "next/server"
 
-export default async function handler(req, res) {
+export async function POST(req: Request){
     // connect to db
     // read user_id from FE
     // retrieve user's info from db
@@ -11,9 +12,7 @@ export default async function handler(req, res) {
     // else:
         // return error
 
-        const { feedbackContent, channel, userEmail} = req.body
-
-        console.log(req.body)
+        const { feedbackContent, channel, userEmail} = await req.json()
 
         const user: User | null = await prisma.user.findUnique({
             where: {email: userEmail},
@@ -28,12 +27,11 @@ export default async function handler(req, res) {
                         authorId: user.id
                 },
                 });
-
-                res.status(200).json({ message: 'feedback submitted'})
+                return NextResponse.json({ message: 'feedback submitted' })
                 
             } catch (error) {
                 console.log("Error submitting feedback data: ", error)
-                res.status(500).json({message: 'feedback submission failed'})
+                return NextResponse.json({message: 'feedback submission failed'})
             }
         }
 }

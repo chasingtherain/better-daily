@@ -1,7 +1,7 @@
 
 import { getServerSession } from "next-auth/next"
-import ProfilePage from '@/components/ProfilePage';
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import ProfilePage from "../ProfilePage";
 
 
 export default async function Profile() {

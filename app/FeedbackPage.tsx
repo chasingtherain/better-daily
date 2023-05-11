@@ -25,6 +25,7 @@ export default function FeedbackPage() {
     const handleChange = (e) => {
         if(e.target){
             const {name, value} = e.target
+            // console.log(name,value)
             setFeedbackData({...feedbackData, [name]: value})
         }
         else{
@@ -44,7 +45,7 @@ export default function FeedbackPage() {
             channel: feedbackData.channel,
             userEmail: session.user.email
         }
-
+        console.log("submittedData: ", submittedData)
         // link to api endpoint
         fetch(`/api/feedback/`,{
             method: "POST",
