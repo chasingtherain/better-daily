@@ -1,11 +1,12 @@
 "use client"
 import * as Label from '@radix-ui/react-label';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { buttonVariants } from "@/components/ui/button"
 import Link from 'next/link';
-import ActionButton from './ui/ActionButton';
+import ActionButton from '@/components/ui/ActionButton';
 
 export default function ProfilePage({email}) {
+
     return (
         <div className="flex flex-col items-center gap-5 mt-10 md:mt-20">
             <div className='flex items-center gap-[15px] px-5'>

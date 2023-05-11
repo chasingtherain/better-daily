@@ -1,7 +1,7 @@
 
 export default function Privacy() {
     return (
-        <div className="mx-5 mt-5 md:mx-10 md:mt-10">
+        <div className="mx-5 mt-5 md:mx-10 md:mt-10 space-y-2">
             <h1>Privacy Policy of Better Daily</h1>
 
             <h2>1. Information We Collect</h2>

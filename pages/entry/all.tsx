@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react"
 import useSWR from 'swr'
 import { EntryCard } from "../../components/EntryCard"
-import { authOptions } from '@/pages/api/auth/[...nextauth]-old'
+import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { fetcher } from "../../utils/fetcher"
 import LoadingCards from "../../components/loadingSkeleton/LoadingCards"

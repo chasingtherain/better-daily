@@ -1,9 +1,9 @@
 export default function Terms() {
     return (
-        <div className="mx-5 mt-5 md:mx-10 md:mt-10">
+        <div className="mx-5 mt-5 md:mx-10 md:mt-10 space-y-2">
             <h1>Terms and Conditions</h1>
 
-            <h2>1. platform License</h2>
+            <h2>1. Platform License</h2>
             <p>{`Better Daily is licensed, not sold, to you by ChasingRain Pte Ltd, "Company" hereafter , for use strictly in accordance with these Terms and Conditions ("Agreement"). By accessing or using the platform, you agree to be bound by this Agreement. If you do not agree to these terms, you may not use the platform.`}</p>
 
             <h2>2. User Conduct</h2>

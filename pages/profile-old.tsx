@@ -1,7 +1,7 @@
 import * as Label from '@radix-ui/react-label';
 import { signOut, useSession } from 'next-auth/react';
 import ActionButton from '../components/ui/ActionButton';
-import { authOptions } from '@/pages/api/auth/[...nextauth]-old'
+import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 import { ServerProps } from '@/types/serverProps';
 import { Button } from '@/components/ui/button';
