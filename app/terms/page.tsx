@@ -16,10 +16,10 @@ export default function Terms() {
             <p>Your privacy is important to us. Please refer to the Privacy Policy for the platform which explains how we collect, use, and disclose your information.</p>
 
             <h2>5. Disclaimer of Warranty</h2>
-            <p>The platform is provided "as is" and without warranties of any kind, whether expressed or implied. The Company does not guarantee that the platform will be error-free, secure, or available at all times. Your use of the platform is at your sole risk.</p>
+            <p>The platform is provided &quot;as is&quot; and without warranties of any kind, whether expressed or implied. The Company does not guarantee that the platform will be error-free, secure, or available at all times. Your use of the platform is at your sole risk.</p>
 
             <h2>6. Limitation of Liability</h2>
-            <p>In no event shall the Company be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the platform. The Company's total liability to you for any damages, losses, or causes of action shall not exceed the amount paid by you, if any, for accessing or using the platform.</p>
+            <p>In no event shall the Company be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the platform. The Company&apos;s total liability to you for any damages, losses, or causes of action shall not exceed the amount paid by you, if any, for accessing or using the platform.</p>
 
             <h2>7. Termination</h2>
             <p>The Company may terminate or suspend your access to the platform at any time, without prior notice or liability, for any reason whatsoever, including without limitation if you breach this Agreement.</p>
