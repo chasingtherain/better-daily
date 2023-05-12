@@ -10,10 +10,8 @@ import LoadingNavbar from "./loadingSkeleton/LoadingNavbar";
 export default function Navbar() {
 
     const { data: session, status } = useSession()
-    if(status == "loading"){
-       return <LoadingNavbar/>
-    }
-    console.log("session from navbar: ", session)
+
+    // console.log("session from navbar: ", session)
     if (session){
         return (
             <div className="flex mt-5 justify-between items-center px-1 mr-2 md:mr-0 md:px-5">
@@ -25,6 +23,6 @@ export default function Navbar() {
             </div>
         );
     }
-    // return <></>
+    return <LoadingNavbar/>
 }
  
