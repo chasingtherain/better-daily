@@ -13,12 +13,13 @@ export default async function handler(req, res) {
     if(!user){
         res.status(422).json({ message: 'failed to find user'})
     }
-    
-    const allEntries = await prisma.entry.findMany({
-        where: {authorId: user?.id}
-    })
-    // console.log("allEntries: ",allEntries)
-    
-    res.status(200).json({ message: 'fetch successful', entries: allEntries })
+    else{
+        const allEntries = await prisma.entry.findMany({
+            where: {authorId: user?.id}
+        })
+        // console.log("allEntries: ",allEntries)
+        
+        res.status(200).json({ message: 'fetch successful', entries: allEntries })
+    }
 }
   
