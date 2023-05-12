@@ -23,6 +23,6 @@ export default function Navbar() {
             </div>
         );
     }
-    return <LoadingNavbar/>
+    return session ? <></> : <LoadingNavbar/> 
 }
  
