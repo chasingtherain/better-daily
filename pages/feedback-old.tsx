@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 
 
 export default function Feedback() {
-    const { data: session, status } = useSession()
+    // const { data: session, status } = useSession()
     const defaultFormState = {
         feedbackContent: '',
         channel: null,
@@ -41,7 +41,7 @@ export default function Feedback() {
         const submittedData: FeedbackData = {
             feedbackContent: feedbackData.feedbackContent,
             channel: feedbackData.channel,
-            userEmail: session?.user?.email
+            // userEmail: session?.user?.email
         }
 
         // link to api endpoint
