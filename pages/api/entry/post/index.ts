@@ -23,7 +23,7 @@ export default async function handler(req, res) {
    
     const existingRecord = await prisma.entry.findFirst({
         where: {
-          authorId: user.id, // Foreign key condition
+          authorId: user?.id, // Foreign key condition
           todayDate: selectedDate
         },
     })
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
               wentWellContent: wentWell,
               notSoWellContent: notWell,
               improvementContent: improve,
-              authorId: user.id
+              authorId: user!.id
             },
           });
       }    

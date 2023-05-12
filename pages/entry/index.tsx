@@ -37,7 +37,7 @@ export default function Entry(props: ServerProps){
         improveOne: '',
     }
     const router = useRouter()
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
     const [formData, setFormData] = useState(defaultFormState);
     const [disabled, setDisabled] = useState(true)
     const [buttonIsLoading, setButtonIsLoading] = useState(false)
@@ -98,7 +98,7 @@ export default function Entry(props: ServerProps){
             notWell: [formData.notWellOne,formData.notWellTwo,formData.notWellThree],
             improve: formData.improveOne,
             userEmail: session.user.email,
-            selectedDate: selectedDate.toDateString()
+            selectedDate: selectedDate?.toDateString()
         }
         
         let validInput = Boolean(submittedData.grateful.concat(submittedData.focus).join("").trim())

@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma"
-import { Feedback } from "@/types/feedback"
+import { FeedbackData } from "@/types/feedback"
 import { User } from "@prisma/client"
 
 export default async function handler(req, res) {
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
         if (user){
             try {
-                const newFeedback: Feedback = await prisma.feedback.create({
+                const newFeedback: FeedbackData = await prisma.feedback.create({
                     data: {
                         feedbackContent: feedbackContent,
                         channel: channel ? channel : null,

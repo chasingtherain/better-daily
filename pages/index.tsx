@@ -95,12 +95,12 @@ export async function getServerSideProps(context){
   const chosenGreeting = helloData.filter(record => record.id === randomGreetingNum)[0].hello
   const chosenQuote = quotes.filter(quote => quote.id === randomNum)[0]
   let focusList = null;
-  let existingRecord = null
-  let user = null
+  let existingRecord
+  let user;
 
   if(session){
     user = await prisma.user.findUnique({
-        where: {email: session.user.email},
+        where: {email: session!.user!.email!},
       })
 
   }

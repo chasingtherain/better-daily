@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     }
     
     const allEntries = await prisma.entry.findMany({
-        where: {authorId: user.id}
+        where: {authorId: user?.id}
     })
     // console.log("allEntries: ",allEntries)
     

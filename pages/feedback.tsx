@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ChevronDownIcon, ChevronUpIcon, Loader2 as Loader } from "lucide-react"
 import * as Select from '@radix-ui/react-select';
 import { useSession } from 'next-auth/react';
-import { Feedback } from '@/types/feedback';
+import { FeedbackData } from '@/types/feedback';
 import { useRouter } from 'next/router';
 
 
@@ -38,10 +38,10 @@ export default function Feedback() {
         e.preventDefault()
         setButtonIsLoading(true)
         // on submit, call endpoint and submit data
-        const submittedData: Feedback = {
+        const submittedData: FeedbackData = {
             feedbackContent: feedbackData.feedbackContent,
             channel: feedbackData.channel,
-            userEmail: session.user.email
+            userEmail: session?.user?.email
         }
 
         // link to api endpoint
