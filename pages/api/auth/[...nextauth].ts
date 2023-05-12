@@ -9,6 +9,16 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import GoogleProvider from "next-auth/providers/google";
 import prisma from '../../../lib/prisma';
 
+interface GoogleProviderConfig {
+  clientId: string;
+  clientSecret: string;
+}
+
+const googleProviderConfig: GoogleProviderConfig = {
+  clientId: process.env.GOOGLE_ID!,
+  clientSecret: process.env.GOOGLE_SECRET!,
+};
+
 const options = {
   providers: [
     // FacebookProvider({
@@ -19,10 +29,7 @@ const options = {
     //   clientId: process.env.GITHUB_ID,
     //   clientSecret: process.env.GITHUB_SECRET,
     // }),
-    GoogleProvider({
-        clientId: process.env.GOOGLE_ID,
-        clientSecret: process.env.GOOGLE_SECRET
-      })
+    GoogleProvider(googleProviderConfig)
   ],
   adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
