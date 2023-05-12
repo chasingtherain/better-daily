@@ -25,8 +25,6 @@ export default function Navbar() {
             </div>
         );
     }
-    if(!session){
-        return <></>
-    }
+    return <></>
 }
  
