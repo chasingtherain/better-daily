@@ -20,6 +20,7 @@ import { currentDate } from '@/utils/date';
 
 export default function Entry(props: ServerProps){
     const {session} = props
+
     const { data: entries, error, isLoading } = useSWR(`/api/entry/get/all?params=${session.user.email}`, fetcher)
     const defaultFormState = {
         gratefulOne: '',
