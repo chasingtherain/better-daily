@@ -1,3 +1,4 @@
+"use client"
 import { currentDate } from '@/utils/date';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@radix-ui/react-icons';
