@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover,PopoverContent,PopoverTrigger } from "@/components/ui/popover"
 import useSWR from 'swr'
-import { ServerProps } from '@/types/serverProps';
 import { currentDate } from '@/utils/date';
 import { fetcher } from '@/utils/fetcher';
 import { formHeaderAndPlaceholders } from '@/data/form/formData';
