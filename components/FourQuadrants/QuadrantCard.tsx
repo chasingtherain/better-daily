@@ -40,7 +40,7 @@ export default function QuadrantCard({quad}) {
 
     return (
         <ScrollArea className="w-4/5 md:w-[300px] h-[350px] md:h-[400px] rounded-md border border-slate-500 mx-2 mb-2 text-center">
-            <Card className="min-h-[400px] mh-fit">
+            <Card className="min-h-[400px] mh-fit dark:bg-black dark:text-white">
                 <CardHeader>
                     <CardTitle>{quad.name ?? "Quadrant X"}</CardTitle>
                     <CardDescription>{quad.description ?? "Urgent and Important"}</CardDescription>
@@ -48,7 +48,7 @@ export default function QuadrantCard({quad}) {
                 <CardContent>
                     <Input
                         maxLength={45}
-                        className="my-1"
+                        className="my-1 hover:cursor-pointer ring-1 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                         placeholder={"Add a task"}
                         onChange={(e) => setUserInput(e.target.value)}
                         onKeyPress={handleAddToList}
@@ -60,7 +60,7 @@ export default function QuadrantCard({quad}) {
                                 readOnly
                                 key={index}
                                 id={String(index)} 
-                                className="hover:bg-gray-100 hover:line-through border-blue-400 my-2 rounded-none" 
+                                className="hover:dark:bg-gray-700 hover:bg-gray-300 hover:line-through hover:cursor-pointer border-blue-400 my-2 rounded-none" 
                                 value= {listItem}
                                 onClick={handleDeleteFromList}
                             />))
