@@ -70,7 +70,7 @@ export default async function Page() {
                     height: "100vh"
                   }}
               />
-              <div className="relative z-20 flex items-center text-lg font-medium">
+              <div className="relative z-5 flex items-center text-lg font-medium">
                 <Command className="mr-2 h-6 w-6" /> Get Better Daily
               </div>
               <div className="relative md:z-20 md:mt-[90%] mt-[70%]">
@@ -85,12 +85,12 @@ export default async function Page() {
             <div className="lg:p-8">
               <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[300px] px-4">
                 <div className="flex flex-col space-y-2 text-center">
-                  <h1 className="text-2xl font-semibold tracking-tight  md:my-2">
+                  <h1 className="text-2xl font-semibold tracking-tight md:my-2 z-5 text-white mt-10">
                     Introspect Today
                   </h1>
                   <ActionButton name="Start Journaling"/>
                 </div>
-                <p className="px-8 text-center text-sm text-muted-foreground">
+                <p className="px-8 text-center text-sm text-muted-foreground z-20 text-white">
                   By proceeding, you agree to our{" "}
                   <Link
                     href="/terms"
