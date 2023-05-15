@@ -1,6 +1,6 @@
 
 import '../styles/globals.css'
-import Navbar from "@/components/Navbar"
+import Navbar from "@/app/navbar/Navbar"
 import Providers from './providers'
 
 export const metadata = {

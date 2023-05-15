@@ -2,7 +2,7 @@ import { SessionProvider} from 'next-auth/react';
 import '../styles/globals.css'
 import { Fragment } from 'react'
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
+import Navbar from '../app/navbar/Navbar'
 import { ThemeProvider } from 'next-themes'
 
 export default function App({ Component, pageProps }) {
