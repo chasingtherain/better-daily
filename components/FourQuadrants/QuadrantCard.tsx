@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
-import { Table,TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 export default function QuadrantCard() {
     const [quadOne, setQuadOne] = useState(['one','two','three','four','five'])
@@ -16,6 +15,12 @@ export default function QuadrantCard() {
             setQuadOne([...quadOne,e.target.value])
             setUserInput('')
         }
+    }
+    const handleDeleteFromList = (e) => {
+        const deletedIndex = Number(e.target.id)
+        console.log("deleted: ", deletedIndex)
+        const filteredArr = quadOne.filter((_, index) => index != deletedIndex)
+        setQuadOne([...filteredArr])
     }
 
     return (
@@ -34,7 +39,16 @@ export default function QuadrantCard() {
                     onKeyPress={handleAddToList}
                     value={userInput}
                 />
-                {quadOne.map((listItem,index) => <p key={index}>{listItem}</p>)}
+                {quadOne.map((listItem,index) => 
+                    <Input 
+                        readOnly
+                        key={index}
+                        id={String(index)} 
+                        className="hover:bg-gray-100 hover:line-through border-pink-100 rounded-none" 
+                        value= {listItem}
+                        onClick={handleDeleteFromList}
+                    />)
+                }
             </CardContent>
             </Card>
         </ScrollArea>
