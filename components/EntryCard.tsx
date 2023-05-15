@@ -12,8 +12,8 @@ import EntryDetails from "./EntryDetails"
 
 export function EntryCard({entry}) {
     return (
-        <ScrollArea className="w-4/5 md:w-[300px] h-[300px] md:h-[400px] rounded-md border border-slate-500 mx-2 mb-2">
-            <Card className="border-none">
+        <ScrollArea className="w-4/5 md:w-[300px] h-[300px] md:h-[400px] rounded-md border border-slate-500 mx-2 mb-2 ">
+            <Card className="border-none dark:bg-black dark:text-gray-300">
                 <CardHeader>
                     <CardTitle className="leading-none">{entry.todayDate}</CardTitle>
                 </CardHeader>
