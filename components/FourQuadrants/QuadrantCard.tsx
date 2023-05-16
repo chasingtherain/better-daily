@@ -1,5 +1,6 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
@@ -12,6 +13,7 @@ type listItem = {
 export default function QuadrantCard({quad}) {
     const [quadrant, setQuadrant] = useState<object[]>([])
     const [userInput, setUserInput] = useState<string>('')
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         const stored = localStorage.getItem(quad.name);
@@ -20,7 +22,7 @@ export default function QuadrantCard({quad}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleAddToList = (e) => {
+    const handleAdd = (e) => {
         if(e.key == 'Enter' && e.target.value.trim().length>0){
             console.log("added to arr: ", e.target)
             setQuadrant([...quadrant, {"id": quadrant.length ?? 0, "task": e.target.value}])
@@ -28,9 +30,16 @@ export default function QuadrantCard({quad}) {
             localStorage.setItem(quad.name, JSON.stringify([...quadrant, {"id": quadrant.length ?? 0, "task": e.target.value}]))
             setUserInput('')
         }
+        else if (e.target.id == "add" && inputRef!.current!.value?.trim().length>0){
+            console.log("added to arr: ", e.target)
+            setQuadrant([...quadrant, {"id": quadrant.length ?? 0, "task": inputRef!.current!.value}])
+            // update local storage
+            localStorage.setItem(quad.name, JSON.stringify([...quadrant, {"id": quadrant.length ?? 0, "task": inputRef!.current!.value}]))
+            setUserInput('')
+        }
     }
     const handleDeleteFromList = (e) => {
-        console.log(e.target)
+        // console.log(e.target)
         const deletedIndex = Number(e.target.id)
         console.log("deleted: ", deletedIndex,e.target)
         const filteredArr = quadrant.filter((item: listItem) => item.id != deletedIndex)
@@ -52,20 +61,31 @@ export default function QuadrantCard({quad}) {
                     <CardDescription>{quad.description ?? "Urgent and Important"}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Input
-                        maxLength={45}
-                        className="my-1 hover:cursor-pointer ring-1 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                        placeholder={"Add a task"}
-                        onChange={(e) => setUserInput(e.target.value)}
-                        onKeyPress={handleAddToList}
-                        value={userInput}
-                    />
+                    <div className="flex w-full max-w-sm items-center space-x-2">
+                        <Input
+                            maxLength={45}
+                            className="my-1 hover:cursor-pointer ring-1 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                            placeholder={"Finish feature X"}
+                            onChange={(e) => setUserInput(e.target.value)}
+                            onKeyPress={handleAdd}
+                            ref={inputRef}
+                            value={userInput}
+                        />
+                        <Button 
+                            id="add" 
+                            className="text-sm" 
+                            onClick={handleAdd}
+                            disabled={userInput?.length == 0 }
+                        >
+                            Add
+                        </Button>
+                    </div>
                     {
-                        quadrant.length ? (quadrant.map((listItem) => 
+                        quadrant.length ? (quadrant.map((listItem:listItem) => 
                             <Input 
                                 readOnly
                                 key={listItem.id}
-                                id={listItem.id} 
+                                id={listItem.id.toString()} 
                                 className="hover:dark:bg-gray-700 hover:bg-gray-300 hover:line-through hover:cursor-pointer border-blue-400 my-2 rounded-none" 
                                 value= {listItem.task}
                                 onClick={handleDeleteFromList}
