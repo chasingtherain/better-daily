@@ -57,7 +57,7 @@ export default function QuadrantCard({quad}) {
         <ScrollArea className="w-4/5 md:w-[300px] h-[350px] md:h-[400px] rounded-md border border-slate-500 mx-2 mb-2 text-center">
             <Card className="min-h-[400px] mh-fit dark:bg-black dark:text-white">
                 <CardHeader>
-                    <CardTitle>{quad.name ?? "Quadrant X"}</CardTitle>
+                    <CardTitle className="font-serif">{quad.name ?? "Quadrant X"}</CardTitle>
                     <CardDescription>{quad.description ?? "Urgent and Important"}</CardDescription>
                 </CardHeader>
                 <CardContent>
