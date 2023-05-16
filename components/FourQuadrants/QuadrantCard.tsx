@@ -4,8 +4,13 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
 
+type listItem = {
+    id: number,
+    task: string
+}
+
 export default function QuadrantCard({quad}) {
-    const [quadrant, setQuadrant] = useState<string[]>([])
+    const [quadrant, setQuadrant] = useState<object[]>([])
     const [userInput, setUserInput] = useState<string>('')
 
     useEffect(() => {
@@ -17,17 +22,18 @@ export default function QuadrantCard({quad}) {
 
     const handleAddToList = (e) => {
         if(e.key == 'Enter' && e.target.value.trim().length>0){
-            console.log("added to arr: ", e.target.value)
-            setQuadrant([...quadrant,e.target.value])
+            console.log("added to arr: ", e.target)
+            setQuadrant([...quadrant, {"id": quadrant.length ?? 0, "task": e.target.value}])
             // update local storage
-            localStorage.setItem(quad.name, JSON.stringify([...quadrant,e.target.value]))
+            localStorage.setItem(quad.name, JSON.stringify([...quadrant, {"id": quadrant.length ?? 0, "task": e.target.value}]))
             setUserInput('')
         }
     }
     const handleDeleteFromList = (e) => {
+        console.log(e.target)
         const deletedIndex = Number(e.target.id)
-        console.log("deleted: ", deletedIndex)
-        const filteredArr = quadrant.filter((_, index) => index != deletedIndex)
+        console.log("deleted: ", deletedIndex,e.target)
+        const filteredArr = quadrant.filter((item: listItem) => item.id != deletedIndex)
         setQuadrant([...filteredArr])
 
         if(filteredArr.length){
@@ -55,13 +61,13 @@ export default function QuadrantCard({quad}) {
                         value={userInput}
                     />
                     {
-                        quadrant.length ? (quadrant.map((listItem,index) => 
+                        quadrant.length ? (quadrant.map((listItem) => 
                             <Input 
                                 readOnly
-                                key={index}
-                                id={String(index)} 
+                                key={listItem.id}
+                                id={listItem.id} 
                                 className="hover:dark:bg-gray-700 hover:bg-gray-300 hover:line-through hover:cursor-pointer border-blue-400 my-2 rounded-none" 
-                                value= {listItem}
+                                value= {listItem.task}
                                 onClick={handleDeleteFromList}
                             />))
                             : <p className="text-slate-500 mt-4">List is empty, keep it up!</p>
