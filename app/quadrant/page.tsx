@@ -1,4 +1,5 @@
-import QuadrantCard from "@/components/FourQuadrants/QuadrantCard";
+// import QuadrantCard from "@/components/FourQuadrants/QuadrantCard";
+import QuadrantCard from "../../components/FourQuadrants/QuadrantCard";
 
 export default function Quadrant() {
     const quadrants = [
