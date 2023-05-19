@@ -1,6 +1,6 @@
 
 import '../styles/globals.css'
-import Navbar from "@/app/navbar/Navbar"
+import Navbar from "@/components/Navbar"
 import Providers from './providers'
 import { Suspense } from 'react'
 import LoadingNavbar from '@/components/loadingSkeleton/LoadingNavbar'

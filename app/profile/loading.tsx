@@ -1,6 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function ProfileLoading() {
+export default function Loading() {
+
     return(    
         // <p>loading...</p>        
         <div className="flex flex-col items-center gap-5 mt-10 md:mt-20">

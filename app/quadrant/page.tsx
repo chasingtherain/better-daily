@@ -1,7 +1,6 @@
-// import QuadrantCard from "@/components/FourQuadrants/QuadrantCard";
-import QuadrantCard from "../../components/FourQuadrants/QuadrantCard";
+import QuadrantCard from "@/components/FourQuadrants/QuadrantCard"
 
-export default function Quadrant() {
+export default function Page() {
     const quadrants = [
         {name: "Quadrant 1",description: "Urgent, Important"},
         {name: "Quadrant 2",description: "Not Urgent, Important"},
