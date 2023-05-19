@@ -17,7 +17,7 @@ export default function AllEntries(props: ServerProps) {
   const entriesSortedInDesc = data?.entries.sort((a,b)=> +new Date(b.todayDate) - +new Date(a.todayDate))
 
   if (error) return <div>failed to load</div>
-  if (isLoading) return <LoadingCards/>
+  // if (isLoading) return <LoadingCards/>
   if (session && !isLoading) {
     return (
       <div className="flex flex-wrap justify-center items-center gap-4 mt-10 mb-20">
