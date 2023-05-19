@@ -12,7 +12,7 @@ export default function Navbar() {
     const { data: session, status } = useSession()
 
     console.log("session from navbar: ", session, status)
-    if (status == 'loading') return <LoadingNavbar/> 
+    // if (status == 'loading') return <LoadingNavbar/> 
     if (session && status == 'authenticated'){
         return (
             <div className="flex mt-5 justify-between items-center px-1 mr-2 md:mr-0 md:px-5">

@@ -2,6 +2,8 @@
 import '../styles/globals.css'
 import Navbar from "@/app/navbar/Navbar"
 import Providers from './providers'
+import { Suspense } from 'react'
+import LoadingNavbar from '@/components/loadingSkeleton/LoadingNavbar'
 
 export const metadata = {
   title: 'Better Daily',
@@ -23,7 +25,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
           <Providers>
-            <Navbar/>
+            <Suspense fallback={<LoadingNavbar/>}>
+              <Navbar/>
+            </Suspense>
             <div>{children}</div>
           </Providers>
       </body>
