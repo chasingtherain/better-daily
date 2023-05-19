@@ -1,6 +1,6 @@
 import QuadrantCard from "@/components/FourQuadrants/QuadrantCard";
 
-export default function Quadrant(params) {
+export default function Quadrant() {
     const quadrants = [
         {name: "Quadrant 1",description: "Urgent, Important"},
         {name: "Quadrant 2",description: "Not Urgent, Important"},
@@ -8,10 +8,8 @@ export default function Quadrant(params) {
         {name: "Quadrant 4",description: "Not Urgent, Not Important"}
     ]
     return (
-    <div className="flex flex-col md:flex-row justify-center items-center mt-5 md:mt-20 gap-8">
-        <QuadrantCard quad={quadrants[0]}/>
-        <QuadrantCard quad={quadrants[1]}/>
-        <QuadrantCard quad={quadrants[2]}/>
-        <QuadrantCard quad={quadrants[3]}/>
-    </div>)
+        <div className="flex flex-col md:flex-row justify-center items-center mt-5 md:mt-20 gap-8">
+            { quadrants.map(card => <QuadrantCard key={card.name} quad={card}/>) }
+        </div>
+    )
 };

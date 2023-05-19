@@ -22,5 +22,6 @@ export default function AllEntriesPage() {
             </div>
         )
     }
-    return <LoadingCards/>
+    // return <LoadingCards/>
+    return <></>
 }
