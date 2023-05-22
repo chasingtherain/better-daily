@@ -34,6 +34,7 @@ model Entry {
   wentWellContent    String[]
   notSoWellContent   String[]
   improvementContent String[]
+  effortRating       Int?     @default(0)
   authorId           String
   author             User     @relation(fields: [authorId], references: [id])
 }
