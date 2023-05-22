@@ -13,8 +13,8 @@ import useSWR from 'swr'
 import { currentDate } from '@/utils/date';
 import { fetcher } from '@/utils/fetcher';
 import { formHeaderAndPlaceholders } from '@/data/form/formData';
-import LoadingForm from '@/components/loadingSkeleton/LoadingForm';
 import { useSession } from 'next-auth/react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 
 export default function EntryPage(){
@@ -34,6 +34,7 @@ export default function EntryPage(){
         notWellTwo: '',
         notWellThree: '',
         improveOne: '',
+        effortRating: 0
     }
     const router = useRouter()
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
@@ -42,7 +43,7 @@ export default function EntryPage(){
     const [buttonIsLoading, setButtonIsLoading] = useState(false)
     const [stepCount, setStepCount] = useState(0)
     const todayEntry = entries?.entries?.filter(entry => entry.todayDate == selectedDate?.toDateString())[0]
-    // console.log(todayEntry)
+    // console.log("todayEntry: ", todayEntry)
     const currentFormAndPlaceHolders = formHeaderAndPlaceholders?.filter(record => record.step == stepCount)
 
     let isNextButtonDisabled = true
@@ -70,7 +71,8 @@ export default function EntryPage(){
                 notWellOne: todayEntry.notSoWellContent[0],
                 notWellTwo: todayEntry.notSoWellContent[1],
                 notWellThree: todayEntry.notSoWellContent[2],
-                improveOne: todayEntry.improvementContent[0]
+                improveOne: todayEntry.improvementContent[0],
+                effortRating: todayEntry.effortRating
             })
         }
         else if(!todayEntry){
@@ -81,26 +83,33 @@ export default function EntryPage(){
     ,[isLoading, todayEntry])
 
     const handleChange = (e) => {
-        const {name, value} = e.target
-        setFormData({...formData, [name]: value})
+        if(e.target){
+            const {name, value} = e.target
+            setFormData({...formData, [name]: value})
+        }
+        else{
+            setFormData({...formData, ["effortRating"]: e})
+        }
         setDisabled(false)
+        console.log(formData)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setButtonIsLoading(true)
         // console.log("submitted")
-        let submittedData = {
+        const submittedData = {
             grateful: [formData.gratefulOne,formData.gratefulTwo,formData.gratefulThree],
             focus: [formData.focusOne,formData.focusTwo,formData.focusThree],
             wentWell: [formData.wentWellOne,formData.wentWellTwo,formData.wentWellThree],
             notWell: [formData.notWellOne,formData.notWellTwo,formData.notWellThree],
             improve: formData.improveOne,
+            effortRating: Number(formData.effortRating),
             userEmail: session!.user!.email,
             selectedDate: selectedDate?.toDateString()
         }
         
-        let validInput = Boolean(submittedData.grateful.concat(submittedData.focus).join("").trim())
+        const validInput = Boolean(submittedData.grateful.concat(submittedData.focus).join("").trim())
         if(!validInput){
             setButtonIsLoading(false)
             // return console.log("invalid form input")
@@ -130,8 +139,6 @@ export default function EntryPage(){
         });
 
     }
-
-    // if(isLoading) return <LoadingForm/>
 
     return(
         <div className='h-screen px-[5%] mt-6 md:px-[40%]'>
@@ -166,7 +173,7 @@ export default function EntryPage(){
                     currentFormAndPlaceHolders.map((field,index) => 
                     (<Form.Field key={index} className="grid mb-[10px]" name={field.name}>
                         <div className="flex items-baseline justify-between">
-                            <Form.Label className="text-[16px] font-semibold leading-[35px]">{field.title}</Form.Label>
+                            <Form.Label className="text-[15px] font-semibold leading-[35px]">{field.title}</Form.Label>
                         </div>
                         {
                             field.inputField.map((input,index)=>
@@ -188,9 +195,30 @@ export default function EntryPage(){
                     </Form.Field>)
                     )
                 }
+            {stepCount == 2 &&
+                <Form.Field name="effortRating" className='my-2'>
+                    <Form.Label className='text-[15px] font-semibold'>Did you put in effort to make progress yesterday?</Form.Label>
+                    <Select
+                        value={formData["effortRating"].toString() ?? "0"}
+                        onValueChange={handleChange}
+                        >
+                        <SelectTrigger className="md:w-[380px] dark:border-white my-3">
+                            <SelectValue className='text-gray-400'/>
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="0">Skip if yesterday was a rest day</SelectItem>
+                            <SelectItem value="1">I put in little effort [25%]</SelectItem>
+                            <SelectItem value="2">I put in some effort [50%]</SelectItem>
+                            <SelectItem value="3">I put in great effort [70%]</SelectItem>
+                            <SelectItem value="4">I gave my absolute best effort [100%]</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </Form.Field>
+            }
+
             </Form.Root>
 
-            <div className='flex gap-10 px-5'>
+            <div className='flex gap-10 px-5 mt-36 md:mt-5'>
                 <Button
                         className={`my-2 w-full rounded-[4px] text-[16px]`}
                         onClick={() => setStepCount(stepCount - 1)}

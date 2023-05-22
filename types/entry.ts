@@ -8,4 +8,5 @@ export interface Entry {
     wentWellContent: Array<string>,
     notSoWellContent: Array<string>,
     improvementContent: Array<string>,
+    effortRating: number
   }

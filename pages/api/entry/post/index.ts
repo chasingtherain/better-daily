@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         // if successful, send success response to FE
         // if not successful, send error to FE
 
-    const {grateful, focus, userEmail,wentWell, notWell, improve ,selectedDate} = req.body
+    const {grateful, focus, userEmail,wentWell, notWell, improve ,selectedDate, effortRating} = req.body
 
     console.log(req.body)
     const user = await prisma.user.findUnique({
@@ -40,6 +40,7 @@ export default async function handler(req, res) {
                   wentWellContent: wentWell,
                   notSoWellContent: notWell,
                   improvementContent: improve,
+                  effortRating: effortRating
               },
             })
         }
@@ -53,6 +54,7 @@ export default async function handler(req, res) {
                 wentWellContent: wentWell,
                 notSoWellContent: notWell,
                 improvementContent: improve,
+                effortRating: effortRating,
                 authorId: user!.id
               },
             });
