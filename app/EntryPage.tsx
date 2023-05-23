@@ -203,7 +203,7 @@ export default function EntryPage(){
                             value={formData["effortRating"].toString() ?? "0"}
                             onValueChange={handleChange}
                             >
-                            <SelectTrigger className="md:w-[380px] dark:border-white my-3">
+                            <SelectTrigger className="dark:border-white my-3">
                                 <SelectValue className='text-gray-400'/>
                             </SelectTrigger>
                             <SelectContent>

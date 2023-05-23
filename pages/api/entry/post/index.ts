@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     const {grateful, focus, userEmail,wentWell, notWell, improve ,selectedDate, effortRating} = req.body
 
-    console.log(req.body)
+    console.log(req.body, "effortRating: ", effortRating, typeof(effortRating))
     const user = await prisma.user.findUnique({
         where: {email: userEmail},
     })
