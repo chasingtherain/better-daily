@@ -140,110 +140,119 @@ export default function EntryPage(){
 
     }
 
-    return(
-        <div className='h-screen px-[5%] mt-6 md:px-[40%]'>
-            <Form.Root>
-                <Form.Field name="date" className="grid mb-[10px]">
-                    <Form.Label className="text-[16px] font-semibold leading-[35px]">Date</Form.Label>
-
-                    <Popover>
-                        <PopoverTrigger asChild>
-                            <Button
-                            variant={"outline"}
-                            className={cn(
-                                "justify-start text-left font-normal dark:border-zinc-50",
-                                !selectedDate && "text-muted-foreground"
-                            )}
+    if (session && !isLoading){
+        return(
+            <div className='h-screen px-[5%] mt-6 md:px-[40%]'>
+                <Form.Root>
+                    <Form.Field name="date" className="grid mb-[10px]">
+                        <Form.Label className="text-[16px] font-semibold leading-[35px]">Date</Form.Label>
+    
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                variant={"outline"}
+                                className={cn(
+                                    "justify-start text-left font-normal dark:border-zinc-50",
+                                    !selectedDate && "text-muted-foreground"
+                                )}
+                                >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                mode="single"
+                                selected={selectedDate}
+                                onSelect={setSelectedDate}
+                                initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+                    </Form.Field>
+                    {
+                        currentFormAndPlaceHolders.map((field,index) => 
+                        (<Form.Field key={index} className="grid mb-[10px]" name={field.name}>
+                            <div className="flex items-baseline justify-between">
+                                <Form.Label className="text-[15px] font-semibold leading-[35px]">{field.title}</Form.Label>
+                            </div>
+                            {
+                                field.inputField.map((input,index)=>
+                                    <Form.Control asChild key={index} required={index == 0}>
+                                        <Input
+                                        maxLength={45}
+                                        className="my-1 dark:border-zinc-50"
+                                        type={input.type}
+                                        name={input.name}
+                                        value={formData[input.name]}
+                                        placeholder={input.placeholder}
+                                        onChange={handleChange}
+                                        />
+                                    </Form.Control>)
+                            }
+                            <Form.Message match="valueMissing">
+                                This field is required
+                            </Form.Message>
+                        </Form.Field>)
+                        )
+                    }
+                {stepCount == 2 &&
+                    <Form.Field name="effortRating" className='my-2'>
+                        <Form.Label className='text-[15px] font-semibold'>Did you put in effort to make progress yesterday?</Form.Label>
+                        <Select
+                            value={formData["effortRating"].toString() ?? "0"}
+                            onValueChange={handleChange}
                             >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0">
-                            <Calendar
-                            mode="single"
-                            selected={selectedDate}
-                            onSelect={setSelectedDate}
-                            initialFocus
-                            />
-                        </PopoverContent>
-                    </Popover>
-                </Form.Field>
-                {
-                    currentFormAndPlaceHolders.map((field,index) => 
-                    (<Form.Field key={index} className="grid mb-[10px]" name={field.name}>
-                        <div className="flex items-baseline justify-between">
-                            <Form.Label className="text-[15px] font-semibold leading-[35px]">{field.title}</Form.Label>
-                        </div>
-                        {
-                            field.inputField.map((input,index)=>
-                                <Form.Control asChild key={index} required={index == 0}>
-                                    <Input
-                                    maxLength={45}
-                                    className="my-1 dark:border-zinc-50"
-                                    type={input.type}
-                                    name={input.name}
-                                    value={formData[input.name]}
-                                    placeholder={input.placeholder}
-                                    onChange={handleChange}
-                                    />
-                                </Form.Control>)
-                        }
-                        <Form.Message match="valueMissing">
-                            This field is required
-                        </Form.Message>
-                    </Form.Field>)
-                    )
+                            <SelectTrigger className="md:w-[380px] dark:border-white my-3">
+                                <SelectValue className='text-gray-400'/>
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="0">Skip if yesterday was a rest day</SelectItem>
+                                <SelectItem value="1">I put in little effort [25%]</SelectItem>
+                                <SelectItem value="2">I put in some effort [50%]</SelectItem>
+                                <SelectItem value="3">I put in great effort [70%]</SelectItem>
+                                <SelectItem value="4">I gave my absolute best effort [100%]</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </Form.Field>
                 }
-            {stepCount == 2 &&
-                <Form.Field name="effortRating" className='my-2'>
-                    <Form.Label className='text-[15px] font-semibold'>Did you put in effort to make progress yesterday?</Form.Label>
-                    <Select
-                        value={formData["effortRating"].toString() ?? "0"}
-                        onValueChange={handleChange}
+    
+                </Form.Root>
+    
+                <div className='flex gap-10 px-5 mt-36 md:mt-5'>
+                    <Button
+                            className={`my-2 w-full rounded-[4px] text-[16px]`}
+                            onClick={() => setStepCount(stepCount - 1)}
+                            disabled= {stepCount <= 0}
                         >
-                        <SelectTrigger className="md:w-[380px] dark:border-white my-3">
-                            <SelectValue className='text-gray-400'/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="0">Skip if yesterday was a rest day</SelectItem>
-                            <SelectItem value="1">I put in little effort [25%]</SelectItem>
-                            <SelectItem value="2">I put in some effort [50%]</SelectItem>
-                            <SelectItem value="3">I put in great effort [70%]</SelectItem>
-                            <SelectItem value="4">I gave my absolute best effort [100%]</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </Form.Field>
-            }
-
-            </Form.Root>
-
-            <div className='flex gap-10 px-5 mt-36 md:mt-5'>
-                <Button
-                        className={`my-2 w-full rounded-[4px] text-[16px]`}
-                        onClick={() => setStepCount(stepCount - 1)}
-                        disabled= {stepCount <= 0}
+                            Previous
+                    </Button>
+                    <Button
+                            className={`my-2 w-full rounded-[4px] text-[16px]`}
+                            onClick={() => setStepCount(stepCount + 1)}
+                            disabled= {isNextButtonDisabled}
+                        >
+                            Next
+                    </Button>
+                </div>
+                <Form.Submit asChild>
+                    {stepCount == 2 && <Button
+                        className={`mt-4 mb-20 w-full rounded-[4px] text-[16px] leading-none`}
+                        disabled = {disabled} 
+                        onClick={(e) => handleSubmit(e)}
                     >
-                        Previous
-                </Button>
-                <Button
-                        className={`my-2 w-full rounded-[4px] text-[16px]`}
-                        onClick={() => setStepCount(stepCount + 1)}
-                        disabled= {isNextButtonDisabled}
-                    >
-                        Next
-                </Button>
+                        {buttonIsLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+                        {buttonIsLoading ? "Submitting..." : "Submit Reflection"}
+                    </Button>}
+                </Form.Submit>
             </div>
-            <Form.Submit asChild>
-                {stepCount == 2 && <Button
-                    className={`mt-4 mb-20 w-full rounded-[4px] text-[16px] leading-none`}
-                    disabled = {disabled} 
-                    onClick={(e) => handleSubmit(e)}
-                >
-                    {buttonIsLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                    {buttonIsLoading ? "Submitting..." : "Submit Reflection"}
-                </Button>}
-            </Form.Submit>
-        </div>
-    )
+        )
+    }
+    if(!session && isLoading){
+        return <p className='text-center text-xl'>loading...</p>
+    }
+    if(!session){
+        return <p className='text-center text-xl'>almost there...</p>
+    }
+    return <></>
 } 

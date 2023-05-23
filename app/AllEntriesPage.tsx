@@ -23,5 +23,10 @@ export default function AllEntriesPage() {
         )
     }
     // return <LoadingCards num={10}/>
-    return <></>
+    if(!session && isLoading){
+        return <p className='text-center text-xl mt-30'>loading...</p>
+    }
+    if(!session){
+        return <p className='text-center text-xl mt-30'>almost there...</p>
+    }
 }

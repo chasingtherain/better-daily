@@ -52,7 +52,7 @@ export default function ProfilePage() {
                         Average effort over {entriesWithEffortRating.length} days: {averageScore} / 4
                     </p>
                     <EffortRating averageScore={averageScore}/>
-                    {encouragementString}
+                    <p className='text-center'>{encouragementString}</p>
 
 
 
@@ -62,5 +62,11 @@ export default function ProfilePage() {
             </div>
         )
     }
-    return <p>Loading.. or not?</p>
+    if(!session && isLoading){
+        return <p className='text-center text-xl mt-30'>loading...</p>
+    }
+    if(!session){
+        return <p className='text-center text-xl mt-30'>almost there...</p>
+    }
+    return <></>
 }
