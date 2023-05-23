@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react"
 import useSWR from 'swr'
 import { Entry } from "@/types/entry"
 import { fetcher } from "@/utils/fetcher"
-import LoadingCards from "@/components/loadingSkeleton/LoadingCards"
 import { EntryCard } from "@/components/EntryCard"
 
 
