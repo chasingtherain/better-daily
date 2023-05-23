@@ -29,4 +29,5 @@ export default function AllEntriesPage() {
     if(!session){
         return <p className='text-center text-xl mt-30'>almost there...</p>
     }
+    return <></>
 }
