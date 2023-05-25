@@ -6,10 +6,20 @@ import { useSession } from "next-auth/react";
 import UserAvatar from "./ui/profile/UserAvatar";
 import { ThemeChanger } from "./ThemeChanger";
 import LoadingNavbar from "./loadingSkeleton/LoadingNavbar";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu"
+import Link from "next/link";
 
 export default function Navbar() {
 
     const { data: session, status } = useSession()
+
 
     console.log("session from navbar: ", session, status)
     if (status == 'loading') return <LoadingNavbar/> 
@@ -19,11 +29,39 @@ export default function Navbar() {
                 <NavMenu/>
                 <div className="flex gap-1 md:gap-2">
                     <ThemeChanger/> 
-                    {status === 'authenticated' ? <UserAvatar image={session?.user?.image} name={session?.user?.name}/> : <ActionButton name="Login"/>}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <UserAvatar image={session?.user?.image} name={session?.user?.name}/>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <Link href='/profile'>
+                                <DropdownMenuItem>
+                                    Profile
+                                </DropdownMenuItem>
+                            </Link>
+                            <Link href='/quadrant'>
+                                <DropdownMenuItem>
+                                    Priorities
+                                </DropdownMenuItem>
+                            </Link>
+                            <Link href='/entry/all'>
+                                <DropdownMenuItem>
+                                    All Entries
+                                </DropdownMenuItem>
+                            </Link>
+                            <DropdownMenuItem disabled>
+                                Mission (Coming Soon)
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+
+                    
                 </div>
             </div>
         );
     }
     return <></>
 }
- 
+  

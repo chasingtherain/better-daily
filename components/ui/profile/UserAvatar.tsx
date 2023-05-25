@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 export default function UserAvatar({image,name}) {
     return (
-      <Link href='/profile'>
         <Avatar.Root 
           className="mt-1 inline-flex h-[35px] w-[35px] md:h-[40px] md:w-[40px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
         >
@@ -16,6 +15,5 @@ export default function UserAvatar({image,name}) {
             {name[0]}
           </Avatar.Fallback>
         </Avatar.Root>
-      </Link>
     )
   }
