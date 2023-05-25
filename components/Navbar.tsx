@@ -51,9 +51,11 @@ export default function Navbar() {
                                     All Entries
                                 </DropdownMenuItem>
                             </Link>
-                            <DropdownMenuItem disabled>
-                                Mission (Coming Soon)
-                            </DropdownMenuItem>
+                            <Link href='/mission'>
+                                <DropdownMenuItem>
+                                    Purpose
+                                </DropdownMenuItem>
+                            </Link>
                         </DropdownMenuContent>
                     </DropdownMenu>
 
