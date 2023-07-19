@@ -9,9 +9,10 @@ import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover,PopoverContent,PopoverTrigger } from "@/components/ui/popover"
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
-
+    const router = useRouter()
     const [loveLanguageValue, setLoveLanguageValue] = useState("")
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(true)
     const [buttonIsLoading, setButtonIsLoading] = useState (false)
@@ -29,10 +30,11 @@ export default function Page() {
     }
 
     const handleSubmit = () => {
+        console.log("confirm button clicked")
         // post to db 
         // if 200 resp, redirect to stats 
         // 
-
+        router.push('/')
         // setButtonIsLoading(true)
 
         // setButtonIsLoading(false)
@@ -92,7 +94,7 @@ export default function Page() {
                     <Button
                         className={`mt-4 mb-8 w-full rounded-[4px] text-[16px] leading-none`}
                         disabled = {disableSubmitBtn} 
-                        onClick={() => handleSubmit()}
+                        onClick={handleSubmit}
                     >
                         {buttonIsLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
                         {buttonIsLoading ? "Updating..." : "Confirm"}

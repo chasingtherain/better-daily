@@ -8,19 +8,19 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  name          String?
-  authPartner   String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
-  accounts      Account[]
-  entries       Entry[]
-  sessions      Session[]
-  feedback      Feedback[]
-
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  emailVerified       DateTime?
+  image               String?
+  name                String?
+  authPartner         String?
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
+  accounts            Account[]
+  entries             Entry[]
+  sessions            Session[]
+  feedback            Feedback[]
+  loveLanguageEntries LoveLanguageEntry[]
   @@map("users")
 }
 
@@ -35,6 +35,20 @@ model Entry {
   notSoWellContent   String[]
   improvementContent String[]
   effortRating       Int?     @default(0)
+  authorId           String
+  author             User     @relation(fields: [authorId], references: [id])
+}
+
+model LoveLanguageEntry {
+  id                 String   @id @default(cuid())
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  todayDate          String
+  service            Int?     @default(0)
+  gift               Int?     @default(0)
+  touch              Int?     @default(0)
+  time               Int?     @default(0)
+  words              Int?     @default(0)
   authorId           String
   author             User     @relation(fields: [authorId], references: [id])
 }
