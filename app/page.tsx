@@ -19,7 +19,7 @@ export default async function Page() {
     let user;
     
     const session = await getServerSession(authOptions)
-    console.log("session from index: ", session)
+    // console.log("session from index: ", session)
 
     if(session){
         user = await prisma.user.findUnique({
