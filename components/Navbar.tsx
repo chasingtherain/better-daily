@@ -51,6 +51,11 @@ export default function Navbar() {
                                     All Entries
                                 </DropdownMenuItem>
                             </Link>
+                            <Link href='/relationship'>
+                                <DropdownMenuItem>
+                                    Love Language
+                                </DropdownMenuItem>
+                            </Link>
                             <DropdownMenuItem disabled>
                                 Mission (Coming Soon)
                             </DropdownMenuItem>
