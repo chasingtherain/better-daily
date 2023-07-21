@@ -56,7 +56,7 @@ export default function Page() {
             console.log("response for /api/relationship/post: ", response)
             if(response.ok){
                 setButtonIsLoading(false)
-                // router.push('/')
+                router.push('/')
             }
         })
         .catch(error => {
