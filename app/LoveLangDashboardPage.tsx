@@ -77,7 +77,7 @@ export default function LoveLangDashboardPage() {
                 const recordYear = date.getFullYear();
                 return recordMonth == month && recordYear == year
         })
-        
+
         return monthlyAggregateRecord?.reduce((sum, obj) => sum + sumNumberValues(obj), 0);
     }
 
@@ -171,7 +171,6 @@ export default function LoveLangDashboardPage() {
             <TabGroup className="mt-6">
             <TabList>
                 <Tab>Overview</Tab>
-                <Tab>Detail</Tab>
             </TabList>
             <TabPanels>
                 <TabPanel>
