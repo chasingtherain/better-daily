@@ -22,15 +22,33 @@ export default function LoveLangDashboardPage() {
     // fetch data from db
     // filter last 7 days result
     // filter last 30 days result
+    const today = new Date()
+    today.setHours(0, 0, 0, 0); // Set time to midnight
+
+    const sevenDaysBeforeToday = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    sevenDaysBeforeToday.setHours(0, 0, 0, 0) // Set time to midnight
 
     const { data: session, status } = useSession()
 
     const { data, error, isLoading } = useSWR(`/api/relationship/get/?params=${session?.user?.email}`, fetcher)
 
-    // const lastSevenDays = data.filter
+
+    const calculateLastSevenDaysRecord = () => {
+
+        const lastSevenDaysAggregateRecord = data?.entries?.filter(record => new Date(record.todayDate) >= sevenDaysBeforeToday && new Date(record.todayDate) <= today)
+
+        const sumNumberValues = (obj) => {
+            return Object.values(obj)?.reduce((sum:number, value:number) => sum + (typeof value === 'number' ? value : 0), 0);
+          }
+          // reduce and return sum all number values in the array
+
+        return lastSevenDaysAggregateRecord?.reduce((sum, obj) => sum + sumNumberValues(obj), 0);
+    } 
+
+    calculateLastSevenDaysRecord()
 
     const cardInfo = [
-        {id: 1, name: "Last 7 days", value:7},
+        {id: 1, name: "Last 7 days", value:calculateLastSevenDaysRecord() || "calculating.."},
         {id: 2, name: "Last 8 days", value:8},
         {id: 3, name: "Last 9 days", value:9},
         {id: 4, name: "Last 10 days", value:10},
@@ -52,7 +70,7 @@ export default function LoveLangDashboardPage() {
                         {cardInfo.map((card) => <DashboardCard key={card.id} title={card.name} value={card.value}/>)}
                     </Grid>
                     <div className="mt-6">
-                        <DashboardBarChart title="Last 30 Days by Category"/>    
+                        <DashboardBarChart title="Last 30 Days"/>    
                         <DashboardBarChart title="Last 12 Months"/>    
                     </div>
                 </TabPanel>
