@@ -34,6 +34,9 @@ export default function LoveLangDashboardPage() {
         return new Date(daysBefore.setHours(0, 0, 0, 0))
     }
 
+    const sumNumberValues = (obj) => {
+        return Object.values(obj)?.reduce((sum:number, value:number) => sum + (typeof value === 'number' ? value : 0), 0);
+    }
     const calculateAggregateRecord = (days) => {
         const lastSevenDaysAggregateRecord = data?.entries?.filter(record => new Date(record.todayDate) >= daysBeforeToday(7) && new Date(record.todayDate) <= today)
         const lastThirtyDaysAggregateRecord = data?.entries?.filter(record => new Date(record.todayDate) >= daysBeforeToday(30) && new Date(record.todayDate) <= today)
@@ -51,11 +54,6 @@ export default function LoveLangDashboardPage() {
               record = data?.entries
           }
 
-
-        const sumNumberValues = (obj) => {
-            return Object.values(obj)?.reduce((sum:number, value:number) => sum + (typeof value === 'number' ? value : 0), 0);
-          }
-
         return record?.reduce((sum, obj) => sum + sumNumberValues(obj), 0);
     } 
 
@@ -70,6 +68,17 @@ export default function LoveLangDashboardPage() {
             sum += record[category]
         })
         return sum
+    }
+
+    const countByMonth = (month, year) => {
+        const monthlyAggregateRecord = data?.entries?.filter(record => {
+                const date = new Date(record.todayDate);
+                const recordMonth = date.getMonth();
+                const recordYear = date.getFullYear();
+                return recordMonth == month && recordYear == year
+        })
+        
+        return monthlyAggregateRecord?.reduce((sum, obj) => sum + sumNumberValues(obj), 0);
     }
 
     const cardInfo = [
@@ -105,51 +114,51 @@ export default function LoveLangDashboardPage() {
     const annualChartData = [
         {
           name: "Jan",
-          "Count": 1,
+          "Count": countByMonth(0, today.getFullYear()),
         },
         {
           name: "Feb",
-          "Count": 2,
+          "Count": countByMonth(1, today.getFullYear())
         },
         {
           name: "Mar",
-          "Count": 3,
+          "Count": countByMonth(2, today.getFullYear())
         },
         {
           name: "Apr",
-          "Count": 4,
+          "Count": countByMonth(3, today.getFullYear())
         },
         {
           name: "May",
-          "Count": 5,
+          "Count": countByMonth(4, today.getFullYear())
         },
         {
           name: "Jun",
-          "Count": 6,
+          "Count": countByMonth(5, today.getFullYear())
         },
         {
           name: "Jul",
-          "Count": 8,
+          "Count": countByMonth(6, today.getFullYear())
         },
         {
           name: "Aug",
-          "Count": 9,
+          "Count": countByMonth(7, today.getFullYear())
         },
         {
           name: "Sep",
-          "Count": 10,
+          "Count": countByMonth(8, today.getFullYear())
         },
         {
           name: "Oct",
-          "Count": 11,
+          "Count": countByMonth(9, today.getFullYear())
         },
         {
           name: "Nov",
-          "Count": 32,
+          "Count":  countByMonth(10, today.getFullYear())
         },
         {
           name: "Dec",
-          "Count": 8,
+          "Count": countByMonth(11, today.getFullYear())
         },
 
     ];
