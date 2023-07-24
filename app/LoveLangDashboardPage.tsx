@@ -166,7 +166,7 @@ export default function LoveLangDashboardPage() {
     return (
         <main className="px-12 py-12">
             <Title>Love Language Dashboard</Title>
-            <Text>A quick glance at how you're expressing your love</Text>
+            <Text>A quick glance at how you&aposre expressing your love</Text>
 
             <TabGroup className="mt-6">
             <TabList>
