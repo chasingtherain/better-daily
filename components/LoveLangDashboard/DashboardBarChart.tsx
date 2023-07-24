@@ -4,35 +4,35 @@ import { Card, Title, BarChart} from "@tremor/react";
 const chartdata = [
     {
       name: "Acts of Service",
-      "Number of Happenstance": 8,
+      "Count": 8,
     },
     {
       name: "Gift",
-      "Number of Happenstance": 5,
+      "Count": 5,
     },
     {
       name: "Physical Touch",
-      "Number of Happenstance": 0,
+      "Count": 0,
     },
     {
       name: "Quality Time",
-      "Number of Happenstance": 7,
+      "Count": 7,
     },
     {
       name: "Words of Affirmation",
-      "Number of Happenstance": 10,
+      "Count": 10,
     },
   ];
   
-function DashboardBarChart() {
+function DashboardBarChart({title}) {
   return (
-    <Card>
-    <Title>Last 30 Days by Category</Title>
+    <Card className='my-6'>
+    <Title>{title}</Title>
     <BarChart
       className="mt-6"
       data={chartdata}
       index="name"
-      categories={["Number of Happenstance"]}
+      categories={["Count"]}
       colors={["blue"]}
       yAxisWidth={48}
     />
