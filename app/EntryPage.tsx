@@ -180,7 +180,7 @@ export default function EntryPage(){
                                 field.inputField.map((input,index)=>
                                     <Form.Control asChild key={index} required={index == 0}>
                                         <Input
-                                        maxLength={45}
+                                        maxLength={100}
                                         className="my-1 dark:border-zinc-50"
                                         type={input.type}
                                         name={input.name}
