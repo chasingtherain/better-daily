@@ -56,6 +56,11 @@ export default function Navbar() {
                                     Love Language
                                 </DropdownMenuItem>
                             </Link>
+                            <Link href='/relationship/conflict'>
+                                <DropdownMenuItem>
+                                    Relationship Conflict
+                                </DropdownMenuItem>
+                            </Link>
                             <DropdownMenuItem disabled>
                                 Mission (Coming Soon)
                             </DropdownMenuItem>
