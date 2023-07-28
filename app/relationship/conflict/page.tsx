@@ -16,7 +16,8 @@ import { Textarea } from '@/components/ui/textarea';
 export default function Page() {
     const router = useRouter()
     const { data: session, status } = useSession()
-    const [loveLanguageValue, setLoveLanguageValue] = useState("")
+    const [conflictValue, setConflictValue] = useState("")
+    const [remarks, setRemarks] = useState("")
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(true)
     const [dateErrorMsg, setDateErrorMsg] = useState(false)
     const [buttonIsLoading, setButtonIsLoading] = useState (false)
@@ -29,8 +30,11 @@ export default function Page() {
         else{
             setDisableSubmitBtn(false)
         }
-        setLoveLanguageValue(value)
+        setConflictValue(value)
+    }
 
+    const handleRemarks = (value) => {
+        setRemarks(value)
     }
 
     const handleSubmit = () => {
@@ -44,17 +48,18 @@ export default function Page() {
         const submittedData = {
             userEmail: session!.user!.email,
             selectedDate: selectedDate?.toDateString(),
-            loveLanguageValue: loveLanguageValue,
+            conflictValue: conflictValue,
+            remarks: remarks,
         }
 
         // link to api endpoint
-        fetch(`/api/relationship/post/`,{
+        fetch(`/api/relationship/conflict/`,{
             method: "POST",
             headers: {"Content-Type": "application/json"}, // Specify the content type as JSON
             body: JSON.stringify(submittedData), // Convert data object to JSON string
         })
         .then(response => {
-            console.log("response for /api/relationship/post: ", response)
+            console.log("response for /api/relationship/conflict: ", response)
             if(response.ok){
                 setButtonIsLoading(false)
                 router.push('/relationship/dashboard')
@@ -116,7 +121,7 @@ export default function Page() {
                     <Form.Field name="effortRating" className='my-2'>
                         <Form.Label className='font-semibold text-center'> What is the main cause of conflict with your spouse?</Form.Label>
                         <Select
-                            value={loveLanguageValue}
+                            value={conflictValue}
                             onValueChange={(value) => handleSelection(value)}
                             >
                             <SelectTrigger className="dark:border-white my-3">
@@ -129,9 +134,14 @@ export default function Page() {
                         </Select>
                     </Form.Field>
 
-                    <Form.Field name="effortRating" className='my-2 border-white'>
+                    <Form.Field name="remarks" className='my-2 border-white'>
                         <Form.Label className='font-semibold text-center'>Remarks</Form.Label>
-                        <Textarea className='mt-3' placeholder="Type your message here. (Optional)" />
+                        <Textarea 
+                            className='mt-3' 
+                            placeholder="Type your message here. (Optional)" 
+                            value={remarks}
+                            onChange={(e) => handleRemarks(e.target.value)}
+                            />
                     </Form.Field>
                 </Form.Root>
                 <Form.Submit asChild>
