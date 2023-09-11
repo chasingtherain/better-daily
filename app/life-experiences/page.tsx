@@ -65,7 +65,25 @@ export default function Page() {
             userEmail: session!.user!.email,
             year: formData.year
         }
-        console.log(submittedData)
+
+        // link to api endpoint
+        fetch(`/api/life-experiences/post/`,{
+            method: "POST",
+            headers: {"Content-Type": "application/json"}, // Specify the content type as JSON
+            body: JSON.stringify(submittedData), // Convert data object to JSON string
+        })
+        .then(response => {
+          // handle response
+            // console.log("response: ", response)
+            if(response.ok){
+                // remove item to ensure that focus list will be updated and refetched by useEffect in '/'
+                console.log("life experience post successful")
+                router.push('/')
+            }
+        })
+        .catch(error => {
+          // handle error
+        });
     }
 
     return (
@@ -105,9 +123,6 @@ export default function Page() {
                                         />
                                     </Form.Control>)
                             }
-                            <Form.Message match="valueMissing">
-                                This field is required
-                            </Form.Message>
                         </Form.Field>)
                         )
                     }

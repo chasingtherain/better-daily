@@ -21,6 +21,7 @@ model User {
   sessions            Session[]
   feedback            Feedback[]
   loveLanguageEntries LoveLanguageEntry[]
+  lifeExperienceEntries LifeExperienceEntry[]
   @@map("users")
 }
 
@@ -35,6 +36,17 @@ model Entry {
   notSoWellContent   String[]
   improvementContent String[]
   effortRating       Int?     @default(0)
+  authorId           String
+  author             User     @relation(fields: [authorId], references: [id])
+}
+
+model LifeExperienceEntry {
+  id                 String   @id @default(cuid())
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  year               String
+  misogiContent      String
+  adventureContent   String[]
   authorId           String
   author             User     @relation(fields: [authorId], references: [id])
 }
