@@ -49,7 +49,7 @@ export default function ProfilePage() {
 
 
                     <p className="text-[15px] font-medium leading-[25px]">
-                        Average effort over {entriesWithEffortRating.length} days: {averageScore.toFixed(1)} / 4
+                        Average effort over {entriesWithEffortRating.length || 0} days: {averageScore.toFixed(1)} / 4
                     </p>
                     <EffortRating averageScore={averageScore}/>
                     <p className='text-center'>{encouragementString}</p>

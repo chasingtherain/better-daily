@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import { Entry } from "@/types/entry"
 import { fetcher } from "@/utils/fetcher"
 import { EntryCard } from "@/components/EntryCard"
+import Link from "next/link"
 
 
 export default function AllEntriesPage() {
@@ -17,7 +18,17 @@ export default function AllEntriesPage() {
     if (session && !isLoading) {
         return (
             <div className="flex flex-wrap justify-center items-center gap-4 mt-10 mb-20">
-            {entriesSortedInDesc.map((entry: Entry) => <EntryCard key={entry.id} entry={entry} />)}
+            {
+                entriesSortedInDesc.map((entry: Entry) => <EntryCard key={entry.id} entry={entry} />)
+            }
+            {
+                !entriesSortedInDesc.length &&
+                <Link 
+                    className='text-center'
+                    href='/entry'>
+                        <p>Add a new entry <span className='inline underline'> here </span> </p> 
+                </Link>
+            }
             </div>
         )
     }
