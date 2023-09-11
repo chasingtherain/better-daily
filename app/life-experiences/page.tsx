@@ -11,6 +11,9 @@ import { Popover,PopoverContent,PopoverTrigger } from "@/components/ui/popover"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { Input } from '@/components/ui/input';
+import { lifeExperienceFormHeaders } from '@/data/form/lifeExperienceData';
+
 
 export default function Page() {
     const router = useRouter()
@@ -85,36 +88,43 @@ export default function Page() {
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
-                                <Calendar
+                                {/* <Calendar
                                 mode="single"
+                                // dateFormat="MM/yyyy"
                                 selected={selectedDate}
                                 onSelect={setSelectedDate}
                                 initialFocus
-                                />
+                                /> */}
                             </PopoverContent>
                         </Popover>
                         {dateErrorMsg && <p className='text-red-600'>Please select a date.</p>}
                     </Form.Field>
 
-                    <Form.Field name="effortRating" className='my-2'>
-                        <Form.Label className='font-semibold text-center'> Which love language have you expressed to your partner today?</Form.Label>
-                        <Select
-                            value={loveLanguageValue}
-                            onValueChange={(value) => handleSelection(value)}
-                            >
-                            <SelectTrigger className="dark:border-white my-3">
-                                <SelectValue className='text-gray-400'/>
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="">Select a Love Language</SelectItem>
-                                <SelectItem value="service">Acts of Service</SelectItem>
-                                <SelectItem value="gift">Gift</SelectItem>
-                                <SelectItem value="touch">Physical Touch</SelectItem>
-                                <SelectItem value="time">Quality Time</SelectItem>
-                                <SelectItem value="words">Words of Affirmation</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </Form.Field>
+                    {
+                        lifeExperienceFormHeaders.map((field,index) => 
+                        (<Form.Field key={index} className="grid mb-[10px]" name={field.name}>
+                            <div className="flex items-baseline justify-between">
+                                <Form.Label className="text-[15px] font-semibold leading-[35px]">{field.title}</Form.Label>
+                            </div>
+                            {
+                                field.inputField.map((input,index)=>
+                                    <Form.Control asChild key={index} required={index == 0}>
+                                        <Input
+                                        maxLength={100}
+                                        className="my-1 dark:border-zinc-50"
+                                        name={input.name}
+                                        // value={formData[input.name]}
+                                        placeholder={input.placeholder}
+                                        // onChange={handleChange}
+                                        />
+                                    </Form.Control>)
+                            }
+                            <Form.Message match="valueMissing">
+                                This field is required
+                            </Form.Message>
+                        </Form.Field>)
+                        )
+                    }
                 </Form.Root>
                 <Form.Submit asChild>
                     <Button
