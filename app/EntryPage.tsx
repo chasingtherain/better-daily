@@ -43,7 +43,6 @@ export default function EntryPage(){
     const [buttonIsLoading, setButtonIsLoading] = useState(false)
     const [stepCount, setStepCount] = useState(0)
     const todayEntry = entries?.entries?.filter(entry => entry.todayDate == selectedDate?.toDateString())[0]
-    // console.log("todayEntry: ", todayEntry)
     const currentFormAndPlaceHolders = formHeaderAndPlaceholders?.filter(record => record.step == stepCount)
 
     let isNextButtonDisabled = true

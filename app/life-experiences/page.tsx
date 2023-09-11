@@ -13,9 +13,11 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Input } from '@/components/ui/input';
 import { lifeExperienceFormHeaders } from '@/data/form/lifeExperienceData';
+import { yearData } from '@/data/date/yearData';
 
 
 export default function Page() {
+    const d = new Date()
     const router = useRouter()
     const { data: session, status } = useSession()
     const [loveLanguageValue, setLoveLanguageValue] = useState("")
@@ -23,81 +25,65 @@ export default function Page() {
     const [dateErrorMsg, setDateErrorMsg] = useState(false)
     const [buttonIsLoading, setButtonIsLoading] = useState (false)
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
-
-    const handleSelection = (value) => {
-        if(value == "") {
-            setDisableSubmitBtn(true)
-        }
-        else{
-            setDisableSubmitBtn(false)
-        }
-        setLoveLanguageValue(value)
-
+    const defaultFormState = {
+        misogiOne: '',
+        adventureOne: '',
+        adventureTwo: '',
+        adventureThree: '',
+        adventureFour: '',
+        adventureFive: '',
+        adventureSix: '',
+        year: d.getFullYear().toString()
+    }
+    const [formData, setFormData] = useState(defaultFormState);
+    
+    const handleSelection = (e) => {
+        setFormData({...formData, ["year"]: e})
+        console.log(e)
+    }
+    const handleChange = (e) => {
+        const {name, value} = e.target
+        setFormData({...formData, [name]: value})
+        setDisableSubmitBtn(false)
+        console.log(formData)
     }
 
-    const handleSubmit = () => {
-        if(!selectedDate){
-            setDateErrorMsg(true)
-            return 
-        }
-        console.log("confirm button clicked")
+    const handleSubmit = (e) => {
+        e.preventDefault()
         setButtonIsLoading(true)
-        setDateErrorMsg(false)
-        const submittedData = {
-            userEmail: session!.user!.email,
-            selectedDate: selectedDate?.toDateString(),
-            loveLanguageValue: loveLanguageValue,
-        }
 
-        // link to api endpoint
-        fetch(`/api/relationship/post/`,{
-            method: "POST",
-            headers: {"Content-Type": "application/json"}, // Specify the content type as JSON
-            body: JSON.stringify(submittedData), // Convert data object to JSON string
-        })
-        .then(response => {
-            console.log("response for /api/relationship/post: ", response)
-            if(response.ok){
-                setButtonIsLoading(false)
-                router.push('/relationship/dashboard')
-            }
-        })
-        .catch(error => {
-            // handle error
-            console.log("error: ", error)
-        });
-        
+        const submittedData = {
+            misogi: formData.misogiOne,
+            adventure: [
+                formData.adventureOne,
+                formData.adventureTwo,
+                formData.adventureThree,
+                formData.adventureFour,
+                formData.adventureFive,
+                formData.adventureSix
+            ],
+            userEmail: session!.user!.email,
+            year: formData.year
+        }
+        console.log(submittedData)
     }
 
     return (
         <div className='h-screen px-[5%] mt-8 md:mt-[5%] md:px-[30%]'>
                 <Form.Root>
                 <Form.Field name="date" className="grid mb-[10px]">
-                        <Form.Label className="text-[16px] font-semibold leading-[35px]">Date</Form.Label>
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Button
-                                variant={"outline"}
-                                className={cn(
-                                    "justify-start text-left font-normal dark:border-zinc-50",
-                                    !selectedDate && "text-muted-foreground"
-                                )}
-                                >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                                {/* <Calendar
-                                mode="single"
-                                // dateFormat="MM/yyyy"
-                                selected={selectedDate}
-                                onSelect={setSelectedDate}
-                                initialFocus
-                                /> */}
-                            </PopoverContent>
-                        </Popover>
-                        {dateErrorMsg && <p className='text-red-600'>Please select a date.</p>}
+                        <Form.Label className="text-[16px] font-semibold leading-[35px]">Year</Form.Label>
+                        <Select
+                            value={formData["year"].toString() || d.getFullYear().toString()}
+                            onValueChange={handleSelection}
+                            >
+                            <SelectTrigger className="dark:border-white my-3">
+                                <SelectValue className='text-gray-400'/>
+                            </SelectTrigger>
+                            <SelectContent>
+                                {yearData.map((year) =><SelectItem key={year} value={year.toString()}>{year}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
                     </Form.Field>
 
                     {
@@ -113,9 +99,9 @@ export default function Page() {
                                         maxLength={100}
                                         className="my-1 dark:border-zinc-50"
                                         name={input.name}
-                                        // value={formData[input.name]}
+                                        value={formData[input.name]}
                                         placeholder={input.placeholder}
-                                        // onChange={handleChange}
+                                        onChange={handleChange}
                                         />
                                     </Form.Control>)
                             }
@@ -133,13 +119,13 @@ export default function Page() {
                         onClick={handleSubmit}
                     >
                         {buttonIsLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                        {buttonIsLoading ? "Updating..." : "Confirm"}
+                        {buttonIsLoading ? "Updating..." : "Submit"}
                     </Button>
                 </Form.Submit>
                 <Link 
                     className='text-center'
                     href='/relationship/dashboard'>
-                        <p className='underline'>Go to Dashboard</p>
+                        <p className='underline'>View Life Experiences</p>
                 </Link>
         </div>
     )
