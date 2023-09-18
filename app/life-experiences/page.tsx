@@ -3,11 +3,7 @@ import * as Form from '@radix-ui/react-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { format } from "date-fns"
-import { Calendar as CalendarIcon, Loader2 as Loader } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover,PopoverContent,PopoverTrigger } from "@/components/ui/popover"
+import { Loader2 as Loader } from "lucide-react"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -53,8 +49,8 @@ export default function Page() {
         setButtonIsLoading(true)
 
         const submittedData = {
-            misogi: formData.misogiOne,
-            adventure: [
+            misogiContent: formData.misogiOne,
+            adventureContent: [
                 formData.adventureOne,
                 formData.adventureTwo,
                 formData.adventureThree,
@@ -65,9 +61,11 @@ export default function Page() {
             userEmail: session!.user!.email,
             year: formData.year
         }
+        console.log("submittedData: ", submittedData)
+        console.log("submitting form to server..")
 
         // link to api endpoint
-        fetch(`/api/life-experiences/post/`,{
+        fetch(`/api/life-experiences/post`,{
             method: "POST",
             headers: {"Content-Type": "application/json"}, // Specify the content type as JSON
             body: JSON.stringify(submittedData), // Convert data object to JSON string
@@ -78,7 +76,7 @@ export default function Page() {
             if(response.ok){
                 // remove item to ensure that focus list will be updated and refetched by useEffect in '/'
                 console.log("life experience post successful")
-                router.push('/')
+                router.push('/life-experiences/all')
             }
         })
         .catch(error => {
@@ -139,7 +137,7 @@ export default function Page() {
                 </Form.Submit>
                 <Link 
                     className='text-center'
-                    href='/relationship/dashboard'>
+                    href='/life-experiences/all'>
                         <p className='underline'>View Life Experiences</p>
                 </Link>
         </div>

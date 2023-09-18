@@ -1,7 +1,5 @@
-const d = new Date()
-
 export const lifeExperienceFormHeaders = [
-    {title: `Misogi: The Defining Experience For ${d.getFullYear()}`, name:"misogi", inputField: 
+    {title: 'Misogi: The Defining Experience For The Year', name:"misogi", inputField: 
         [
             {placeholder: "Run a Half Marathon", name:"misogiOne"}
         ]
