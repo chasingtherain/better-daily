@@ -21,7 +21,7 @@ export default function Navbar() {
     const { data: session, status } = useSession()
 
 
-    console.log("session from navbar: ", session, status)
+    // console.log("session from navbar: ", session, status)
     if (status == 'loading') return <LoadingNavbar/> 
     if (session && status == 'authenticated'){
         return (

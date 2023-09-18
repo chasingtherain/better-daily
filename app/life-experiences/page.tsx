@@ -1,7 +1,7 @@
 "use client"
 import * as Form from '@radix-ui/react-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Loader2 as Loader } from "lucide-react"
 import Link from 'next/link';
@@ -10,17 +10,18 @@ import { useSession } from 'next-auth/react';
 import { Input } from '@/components/ui/input';
 import { lifeExperienceFormHeaders } from '@/data/form/lifeExperienceData';
 import { yearData } from '@/data/date/yearData';
+import useSWR from 'swr'
+import { fetcher } from '@/utils/fetcher';
 
 
 export default function Page() {
     const d = new Date()
-    const router = useRouter()
     const { data: session, status } = useSession()
-    const [loveLanguageValue, setLoveLanguageValue] = useState("")
+    const { data:entries, error, isLoading } = useSWR(`/api/life-experiences/get/all?params=${session?.user?.email}`, fetcher)
+    
+    const router = useRouter()
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(true)
-    const [dateErrorMsg, setDateErrorMsg] = useState(false)
     const [buttonIsLoading, setButtonIsLoading] = useState (false)
-    const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
     const defaultFormState = {
         misogiOne: '',
         adventureOne: '',
@@ -32,6 +33,28 @@ export default function Page() {
         year: d.getFullYear().toString()
     }
     const [formData, setFormData] = useState(defaultFormState);
+    const yearOfEntry = entries?.allLifeExperienceEntries?.filter(entry => entry.year == formData.year)[0]
+    console.log("entries: ", entries)
+    console.log("yearOfEntry: ", yearOfEntry)
+    useEffect(() => {
+        if(!isLoading && yearOfEntry){
+            setFormData({
+                misogiOne: yearOfEntry.misogiContent,
+                adventureOne: yearOfEntry.adventureContent[0],
+                adventureTwo: yearOfEntry.adventureContent[1],
+                adventureThree: yearOfEntry.adventureContent[2],
+                adventureFour: yearOfEntry.adventureContent[3],
+                adventureFive: yearOfEntry.adventureContent[4],
+                adventureSix: yearOfEntry.adventureContent[5],
+                year: yearOfEntry.year
+            })
+        }
+        else if(!yearOfEntry){
+            setFormData(defaultFormState)
+        }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    ,[isLoading, yearOfEntry])
     
     const handleSelection = (e) => {
         setFormData({...formData, ["year"]: e})

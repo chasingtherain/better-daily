@@ -1,7 +1,6 @@
 "use client"
 import { useSession } from "next-auth/react"
 import useSWR from 'swr'
-import { Entry } from "@/types/entry"
 import { fetcher } from "@/utils/fetcher"
 import Link from "next/link"
 import { LifeExperienceEntryCard } from "@/components/LifeExperience/LifeExperienceEntryCard"

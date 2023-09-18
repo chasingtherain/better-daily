@@ -4,16 +4,9 @@ import { User } from "@prisma/client"
 import { NextResponse } from "next/server"
 
 export async function POST(req: Request){
-    // connect to db
-    // read user_id from FE
-    // retrieve user's info from db
-    // if user info exists in db:
-        // write to db on feedback
-    // else:
-        // return error
 
         const { year, misogiContent, userEmail, adventureContent} = await req.json()
-        console.log("year, misogiContent, userEmail, adventureContent: ", year, misogiContent, userEmail, adventureContent)
+
         const user: User | null = await prisma.user.findUnique({
             where: {email: userEmail},
           })
