@@ -18,7 +18,7 @@ export default function Page() {
     const d = new Date()
     const { data: session, status } = useSession()
     const { data:entries, error, isLoading } = useSWR(`/api/life-experiences/get/all?params=${session?.user?.email}`, fetcher)
-    
+    const [selectedYear, setSelectedYear] = useState(2023)
     const router = useRouter()
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(true)
     const [buttonIsLoading, setButtonIsLoading] = useState (false)
@@ -29,11 +29,11 @@ export default function Page() {
         adventureThree: '',
         adventureFour: '',
         adventureFive: '',
-        adventureSix: '',
-        year: d.getFullYear().toString()
+        adventureSix: ''
     }
     const [formData, setFormData] = useState(defaultFormState);
-    const yearOfEntry = entries?.allLifeExperienceEntries?.filter(entry => entry.year == formData.year)[0]
+    const yearOfEntry = entries?.allLifeExperienceEntries?.filter(entry => entry.year == selectedYear)[0]
+    console.log("yearOfEntry: ", yearOfEntry)
     console.log("entries: ", entries)
     console.log("yearOfEntry: ", yearOfEntry)
     useEffect(() => {
@@ -45,8 +45,7 @@ export default function Page() {
                 adventureThree: yearOfEntry.adventureContent[2],
                 adventureFour: yearOfEntry.adventureContent[3],
                 adventureFive: yearOfEntry.adventureContent[4],
-                adventureSix: yearOfEntry.adventureContent[5],
-                year: yearOfEntry.year
+                adventureSix: yearOfEntry.adventureContent[5]
             })
         }
         else if(!yearOfEntry){
@@ -57,7 +56,8 @@ export default function Page() {
     ,[isLoading, yearOfEntry])
     
     const handleSelection = (e) => {
-        setFormData({...formData, ["year"]: e})
+        // setFormData({...formData, ["year"]: e})
+        setSelectedYear(e)
         console.log(e)
     }
     const handleChange = (e) => {
@@ -82,7 +82,7 @@ export default function Page() {
                 formData.adventureSix
             ],
             userEmail: session!.user!.email,
-            year: formData.year
+            year: selectedYear
         }
         console.log("submittedData: ", submittedData)
         console.log("submitting form to server..")
@@ -113,7 +113,7 @@ export default function Page() {
                 <Form.Field name="date" className="grid mb-[10px]">
                         <Form.Label className="text-[16px] font-semibold leading-[35px]">Year</Form.Label>
                         <Select
-                            value={formData["year"].toString() || d.getFullYear().toString()}
+                            value={selectedYear.toString() || d.getFullYear().toString()}
                             onValueChange={handleSelection}
                             >
                             <SelectTrigger className="dark:border-white my-3">
